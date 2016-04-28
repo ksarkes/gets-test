@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GeTS Web Test Client</title>
+    <meta charset='utf-8' />
+    <script type="text/javascript">
+        
+        var auth_token = '';
+        var auth_token_elem = null;
+        var logout_elem = null;
+        var load_points_btn;
+        var points_elem;
+      
+        function getXmlHttp(){
+            var xmlhttp;
+            try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (E) {
+                    xmlhttp = false;
+                }
+            }      
+            if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+                xmlhttp = new XMLHttpRequest();
+            }
+            return xmlhttp;
+        }
+        
+        function isLocalStorageAvailable() {
+            try {
+                return 'localStorage' in window && window['localStorage'] !== null;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        function getUnixTimeStamp() {
+            if (!Date.now) {
+                return new Date().getTime();
+            }
+            return Date.now();
+        }
+        
+        function isTokenExpire() {
+            var expDate = localStorage.getItem('token_expires');
+            if (expDate === null) {
+                return true;
+            }
+            
+            var curDate = getUnixTimeStamp();        
+            if (curDate >= expDate) {
+                showError('Token expired', 3000);
+                localStorage.clear();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        function createAuthTokenElem(value) {
+            auth_token_elem = document.createElement('p');
+            auth_token_elem.textContent = 'Your token is: ' + value;
+            document.body.appendChild(auth_token_elem);
+        }
+        
+        function createLogOutElem() {
+            logout_elem = document.createElement('a');
+            logout_elem.setAttribute('href', '#');
+            logout_elem.setAttribute('onclick', '');
+            document.body.appendChild(logout_elem);
+        }
+        
+        function showError(errorText, timeOut) {
+            var error_log_elem = document.getElementById('error_log');
+            error_log_elem.innerHTML = errorText;
+            error_log_elem.setAttribute('style', 'display: block;');
+            setTimeout(function() {
+                error_log_elem.setAttribute('style', 'display: none;');
+                error_log_elem.innerHTML = '';
+            }, timeOut);
+        }
+        
+        function onLoadBody() {
+            auth_token = localStorage.getItem('auth_token');
+            console.log('onLoadBody() auth_token: ' + auth_token);
+            if (auth_token === null || isTokenExpire()) {
+                document.getElementById('auth_btn').setAttribute('style', 'display: block;');
+                return;
+            }
+            createAuthTokenElem(auth_token);
+            createLogOutElem();
+        }
+             
+        function authorize() {
+            var getRedirectLink = getXmlHttp();
+            //getRedirectLink.open('POST', 'http://localhost/service/userLogin.php', false);
+            getRedirectLink.open('POST', 'http://oss.fruct.org/projects/gets/service/userLogin.php', false);
+            getRedirectLink.setRequestHeader('Content-Type','text/xml');
+            getRedirectLink.send('<request><params></params></request>');
+            if (getRedirectLink.status !== 200) {
+                showError('An error occurred while processing the request', 3000);
+                return;
+            }
+          
+            var id = getRedirectLink.responseXML.getElementsByTagName('id')[0].childNodes[0].nodeValue;
+            var redirect_url = getRedirectLink.responseXML.getElementsByTagName('redirect_url')[0].childNodes[0].nodeValue;
+         
+            var googleAuthWindow = window.open(redirect_url, 'Google Auth', 'height=600,width=500');
+            var timer = setInterval(function() {   
+                if(googleAuthWindow.closed) {  
+                    clearInterval(timer);  
+                    var getAuthToken = getXmlHttp();
+                    //getAuthToken.open('POST', 'http://localhost/service/userLogin.php', false);
+                    getAuthToken.open('POST', 'http://oss.fruct.org/projects/gets/service/userLogin.php', false);
+                    getAuthToken.setRequestHeader('Content-Type','text/xml');
+                    getAuthToken.send('<request><params><id>' + id + '</id></params></request>');
+                    
+                    if (getAuthToken.status !== 200) {
+                        showError('An error occurred while processing the request', 3000);
+                        return;
+                    }
+                    console.log('getAuthToken.responseText: ' + getAuthToken.responseText);
+                    var getAuthTokenRespCode = getAuthToken.responseXML.getElementsByTagName('code')[0].childNodes[0].nodeValue; 
+                    if (getAuthTokenRespCode != 0) {
+                        showError(getAuthToken.responseXML.getElementsByTagName('message')[0].childNodes[0].nodeValue, 3000);
+                        return;
+                    }
+                    
+                    auth_token = getAuthToken.responseXML.getElementsByTagName('auth_token')[0].childNodes[0].nodeValue;
+                    if (auth_token !== '') {
+                        document.getElementById('auth_btn').setAttribute('style', 'display: none;');
+                    }
+                    createAuthTokenElem(auth_token);
+                    createLogOutElem();
+                    if (isLocalStorageAvailable()) {
+                        try {
+                            localStorage.setItem('auth_token', auth_token);
+                            // token expires in 3 days
+                            var expire = getUnixTimeStamp() + 3*24*60*60*1000;
+                            console.log('expire set: ' + expire);
+                            localStorage.setItem('token_expires', expire);
+                        } catch (e) {
+                            if (e == QUOTA_EXCEEDED_ERR) {
+                                showError('Warning: Local storage quota was exceeded', 3000);
+                            }
+                        }
+                    } else {
+                        showError('Warning: Local storage isn\'t available', 3000);
+                    }
+
+                }  
+            }, 1000);                       
+        }
+        
+        function logout() {
+            var logout = getXmlHttp();
+            logout.open('POST', 'http://oss.fruct.org/projects/gets/service/userLogin.php', false);
+            logout.setRequestHeader('Content-Type','text/xml');
+            logout.send('<request><params><auth_token>' + auth_token + '</auth_token></params></request>');
+            if (logout.status !== 200) {
+                showError('An error occurred while processing the request', 3000);
+                return;
+            }
+            
+            document.body.removeChild(auth_token_elem);
+            document.body.removeChild(logout_elem);
+            auth_token_elem = null;
+            logout_elem = null;
+            document.getElementById('auth_btn').setAttribute('style', 'display: block;');
+            localStorage.clear();
+        }
+    </script>
+  </head>
+  <body onload="onLoadBody();">
+      <h4>This is a simple GeTS client that allows you to get GeTS auth token by using your Google account.</h4>
+      <button id="auth_btn" onclick="authorize();" style="display: none;">Authorize</button>
+      <p id="error_log" style="display: none;"></p>
+  </body>
+</html>
+

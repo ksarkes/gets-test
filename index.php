@@ -1,0 +1,1 @@
+<?php header('Location: web-client/dist/index.php'); ?>
