@@ -611,10 +611,12 @@ PointsPage.prototype.downloadPointsHandler = function() {
             var pointList = that._points.getPointList();
             that._mapCtrl.removePointsFromMap();
             that._pointsMain.placePointsInPointList(pointList);
+            /*
             that._mapCtrl.placePointsOnMap(pointList, {
                 url: '#form=' + PointsPage.POINT_INFO + '&point_uuid=',
                 text: $(that._pointInfo.getView()).data('putpoint')
-            });
+            }); */
+            getData(that._mapCtrl);
             that._pointsMain.hideOverlay();
         });
     } catch (Exception) {

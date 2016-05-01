@@ -1,7 +1,7 @@
 
 var scopes ="";
 var data;
-function getData() {
+function getData(mapCtrl) {
     $.ajax({
         type: 'GET',
         url: 'http://ds-karelia.opti-soft.ru/api/getListScopes',
@@ -19,14 +19,23 @@ function getData() {
                 dataType: 'jsonp',
                 success: function(newdata) {
                     data = newdata;
-                    var point;
+                    var point = {};
                     var pointList = [];
-                    alert(data.length);
                     for (var i in data) {
-                        alert(data[i].Latitude);
-                        point.coordinates = data[i].Latitude + "," + data[i].Longitude;
-                        pointList[i] = point;
+                        pointList[i]= {
+                            coordinates: data[i].Latitude + "," + data[i].Longitude,
+                            uuid: 123,
+                            title: "ololo",
+                            category_id: 1,
+                            name: "gsom",
+                            description: "yatochka"
+                        };
+                        //alert(data[i].Accessibility[i].Categorie.Id);
                     }
+                    mapCtrl.placePointsOnMap(pointList,{
+                        url: '#form=' + PointsPage.POINT_INFO + '&point_uuid=',
+                        text: $(that._pointInfo.getView()).data('putpoint')
+                    });
                 },
                 error: function(){
                     alert('error');

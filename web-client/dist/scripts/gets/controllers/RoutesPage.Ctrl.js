@@ -52,7 +52,7 @@ RoutesPage.prototype.initPage = function() {
         this._mapCtrl.initMap();
     }
 
-    getData();
+    getData(this._mapCtrl);
 
         // Init models
         if (!this._points) {
