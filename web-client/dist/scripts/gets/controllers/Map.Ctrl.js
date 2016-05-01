@@ -83,7 +83,9 @@ MapController.prototype.placeSocialsOnMap = function(socialList) {
 MapController.prototype.removePointsFromMap = function() {
     this._map.removePointsLayer();
 };
-
+MapController.prototype.removeSocialsFromMap = function() {
+    this._map.removeSocialsLayer();
+};
 MapController.prototype.createTempMarker = function(latitude, longitude, callback) { 
     this._map.createTempMarker(latitude, longitude, callback);
 };

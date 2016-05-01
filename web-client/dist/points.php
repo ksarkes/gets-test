@@ -47,7 +47,6 @@ require_once(TRANSLATIONS_SCRIPT);
         <script src="scripts/gets/controllers/PointsPage.Ctrl.js"></script>
         <script src="scripts/gets/controllers/Map.Ctrl.js"></script> 
         <script src="scripts/gets/controllers/Language.Ctrl.js"></script>
-        <script src="scripts/gets/temp.js"></script>
         <script>
             $(document).ready(function() {
                 Logger.useDefaults();

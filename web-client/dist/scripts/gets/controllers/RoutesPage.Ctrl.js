@@ -28,11 +28,11 @@ RoutesPage.ROUTE_INFO = 'route_info';
 RoutesPage.prototype.changeForm = function () {
     var form = this._utils.getHashVar('form');
     Logger.debug('changeForm form = ' + form);
-    if (form === PointsPage.MAIN) {
+    if (form === RoutesPage.MAIN) {
         this.showRoutesMain();
-    } else if (form === PointsPage.SOCIAL_INFO) {
+    } else if (form === RoutesPage.SOCIAL_INFO) {
         this.showSocialInfo();
-    } else if (form === PointsPage.ROUTE_INFO) {
+    } else if (form === RoutesPage.ROUTE_INFO) {
         this.showRouteInfo();
     } else if (typeof form === 'undefined') {
         this.window.location.replace('#form=' + RoutesPage.MAIN);
@@ -127,7 +127,7 @@ RoutesPage.prototype.initPage = function () {
             self._socialsMain.setLatitude(Math.floor(position.coords.latitude * 10000) / 10000);
             self._socialsMain.setLongitude(Math.floor(position.coords.longitude * 10000) / 10000);
 
-            self.downloadSocialsHandler();
+            //self.downloadSocialsHandler();
 
         }, this.handleGeoLocationError);
     } else {
@@ -216,20 +216,16 @@ RoutesPage.prototype.downloadSocialsHandler = function () {
     var that = this;
     try {
         this._socialsMain.showOverlay();
-getData(this._mapCtrl);
-        // TODO: сюда запихать выбранные в списке категории, убирать соц объекты с мапконтрола
+        // TODO: сюда запихать выбранные в списке категории
         var formData = $(this.document).find('#socials-main-form').serializeArray();
 
         this._socials.downloadSocials(formData, function () {
             var socialList = that._socials.getSocialList();
-            //that._mapCtrl.removePointsFromMap();
-            //that._socialsMain.placePointsInPointList(pointList);
-            that._mapCtrl.placeSocialsOnMap(socialList
-/*                , {
-                url: '#form=' + RoutesPage.POINT_INFO + '&point_uuid=',
-                text: $(that._pointInfo.getView()).data('putpoint')
-            }*/
-            );
+            var scopeList = that._socials.getScopeList();
+            that._mapCtrl.removeSocialsFromMap();
+            that._socialsMain.placeSocialsInSocialList(socialList);
+            that._socialsMain.placeScopesInScopeList(scopeList);
+            that._mapCtrl.placeSocialsOnMap(socialList);
             that._socialsMain.hideOverlay();
         });
     } catch (Exception) {

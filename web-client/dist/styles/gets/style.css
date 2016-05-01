@@ -36,7 +36,6 @@ html, body {
     width: 100%;
     top: 50px;
 }
-
 .main-header {
     display: block;
     width: 100%;
@@ -259,8 +258,8 @@ input.search-query {
 
 .ellipsis-text {
     display: block;
-    white-space: nowrap; 
-    overflow: hidden; 
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -288,5 +287,88 @@ input.search-query {
 }
 
 .display-none {
+    display: none;
+}
+
+
+/* Disabilities checkbox style */
+
+#blind_img {
+    background: url('../../images/icons/ic_blind_gray.png') no-repeat;
+    position: relative;
+    cursor: pointer;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right:5px;
+    margin-left:5px;
+}
+#deaf_img
+{
+    background: url('../../images/icons/ic_deaf_gray.png') no-repeat;
+    position: relative;
+    cursor: pointer;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right:5px;
+    margin-left:5px;
+}
+#wheelchair_img {
+    background: url('../../images/icons/ic_wheelchair_gray.png') no-repeat;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    margin-right:5px;
+    margin-left:5px;
+}
+#mental_img {
+    background: url('../../images/icons/ic_mental_gray.png') no-repeat;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    margin-right:5px;
+    margin-left:5px;
+}
+#muscle_img {
+    background: url('../../images/icons/ic_muscle_gray.png') no-repeat;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    margin-right:5px;
+    margin-left:5px;
+}
+#deaf:checked ~ #deaf_img {
+    background: url('../../images/icons/ic_deaf.png') no-repeat;
+    background-size: 40px 40px;
+}
+#blind:checked ~ #blind_img {
+    background: url('../../images/icons/ic_blind.png') no-repeat;
+    background-size: 40px 40px;
+}
+#mental:checked ~ #mental_img {
+    background: url('../../images/icons/ic_mental.png') no-repeat;
+    background-size: 40px 40px;
+}
+#wheelchair:checked ~ #wheelchair_img {
+    background: url('../../images/icons/ic_wheelchair.png') no-repeat;
+    background-size: 40px 40px;
+}
+#muscle:checked ~ #muscle_img {
+    background: url('../../images/icons/ic_muscle.png') no-repeat;
+    background-size: 40px 40px;
+}
+.disabilitiesSelect {
     display: none;
 }

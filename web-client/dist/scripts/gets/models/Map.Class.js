@@ -59,12 +59,12 @@ MapClass.prototype.initMap = function() {
             }]
         });
     }
-      
+      /*
     if (!this.layersControl) {
         this.layersControl = L.control.layers({
             "Base map": this.baseMapLayer
         }, null, {position: 'topleft'}).addTo(this.map);
-    }
+    }*/
 };
 
 L.NumberedDivIcon = L.Icon.extend({
@@ -488,8 +488,6 @@ MapClass.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 
         this.pointsLayer.addLayer(marker);
 
-        alert(JSON.stringify(marker));
-
         var popup = L.popup()
             .setContent(
             '<b>' + pointList[i].name +
@@ -524,17 +522,12 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
         var coords = socialList[i].coordinates.split(',');
         var marker = L.marker([coords[0], coords[1]], {title: socialList[i].name, draggable: false}); //{icon: myIcon}
         marker.uuid = socialList[i].uuid;
-        marker.title = socialList[i].name;
+        marker.title = socialList[i].title;
         marker.category_id = socialList[i].category_id;
-
         this.socialsLayer.addLayer(marker);
 
-        alert(JSON.stringify(marker));
-        var popup = L.popup()
-            .setContent(
-            '<b>' + socialList[i].name +
-            '</b><br>' + socialList[i].description
-        );
+        var popup = L.popup().setContent(socialList[i].title);
+        var self = this;
         marker.bindPopup(popup);
     }
 
@@ -552,6 +545,13 @@ MapClass.prototype.removePointsLayer = function() {
     if (this.pointsLayer) {
         this.map.removeLayer(this.pointsLayer);
         this.pointsLayer = null;
+    }
+};
+
+MapClass.prototype.removeSocialsLayer = function() {
+    if (this.socialsLayer) {
+        this.map.removeLayer(this.socialsLayer);
+        this.socialsLayer = null;
     }
 };
 

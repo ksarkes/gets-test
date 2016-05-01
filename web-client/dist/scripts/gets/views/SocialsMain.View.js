@@ -34,11 +34,28 @@ SocialsMain.prototype.placeSocialsInSocialList = function (socialList) {
 
     var socialListHTML = '';
     for (var i = 0, len = socialList.length; i < len; i++) {
-        socialListHTML += '<li class="list-group-item"><a href="#form=social_info&social_uuid=' + socialList[i].uuid + '">' + socialList[i].name + '</a></li>';
+        socialListHTML += '<li class="list-group-item"><a href="#form=social_info&social_uuid=' + socialList[i].uuid + '">' + socialList[i].title + '</a></li>';
     }
     $(socialListElement).html(socialListHTML);
 };
+SocialsMain.prototype.placeScopesInScopeList = function (scopeList) {
+    var scopeListElement = $(this.mainSocials).find( '#scopes-list' );
+    $( scopeListElement ).empty();
 
+    if (!scopeListElement || !scopeListElement.length) {
+        throw new GetsWebClientException('SocialsMain View Error', 'placeScopeListElement, scopeListElement undefined or null');
+    }
+
+    if (!scopeList) {
+        throw new GetsWebClientException('SocialsMain View Error', 'placeScopeListElement, scopeList undefined or null');
+    }
+    var scopeListHTML = 'Сферы деятельности';
+    for (var i = 0, len = scopeList.length; i < len; i++) {
+        scopeListHTML += '<div class="checkbox"><label><input type="checkbox" id=' + scopeList[i].id + '>' + scopeList[i].name + '</label></li></div>';
+    }
+    scopeListHTML += '<br>';
+    $(scopeListElement).html(scopeListHTML);
+};
 /**
  * Place categories into track mainSocials HTML object.
  *

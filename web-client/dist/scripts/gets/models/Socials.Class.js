@@ -1,6 +1,7 @@
 
 function SocialsClass() {
     this.socialList = null;
+    this.scopeList = null;
     this.needsocialListUpdate = false;
     this.needsocialUpdate = false;
 }
@@ -10,6 +11,10 @@ function SocialsClass() {
  */
 SocialsClass.prototype.isSocialListDownloaded = function () {
     return !!this.socialList;
+};
+
+SocialsClass.prototype.isScopeListDownloaded = function () {
+    return !!this.scopeList;
 };
 
 SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
@@ -39,6 +44,7 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
     // TODO: временный костыль, загружаем точки всех сфер деятельности
     var scopes = "";
     var socialsList = [];
+    var scopeList = [];
     var self = this;
     $.ajax({
         type: 'GET',
@@ -50,7 +56,13 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                 opt.innerHTML = scopeData[i].Name;
                 opt.value = scopeData[i].Id;
                 scopes += "&scopes=" + opt.value;
+                scopeList[i] = {
+                    id: scopeData[i].Id,
+                    name: scopeData[i].Name
+                };
             }
+            self.scopeList = scopeList;
+
             $.ajax({
                 type: 'GET',
                 url: 'http://ds-karelia.opti-soft.ru/api/getPassports?latitude=' + lat + '&longitude=' + lng + scopes + '&radius=' + radius + '&onlyAgreed=false',
@@ -59,13 +71,11 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                     for (var i in data) {
                         socialsList[i] = {
                             coordinates: data[i].Latitude + "," + data[i].Longitude,
-                            uuid: 123,
-                            title: "ololo",
-                            category_id: 1,
-                            name: "gsom",
-                            description: "yatochka"
+                            // our internal uuid ¯\_(ツ)_/¯
+                            uuid: i,
+                            title: data[i].Name,
+                            category_id: 1
                         };
-                        alert(JSON.stringify(data[i]));
                     }
                     self.socialList = socialsList;
                     if (callback) {
@@ -143,6 +153,12 @@ SocialsClass.prototype.findSocialInsocialList = function(uuid) {
 SocialsClass.prototype.getSocialList = function() {
     if (this.isSocialListDownloaded()) {
         return this.socialList;
+    }
+};
+
+SocialsClass.prototype.getScopeList = function() {
+    if (this.isScopeListDownloaded()) {
+        return this.scopeList;
     }
 };
 

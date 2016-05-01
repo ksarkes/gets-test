@@ -2,7 +2,6 @@
 session_start();
 require_once('./config.php');
 require_once(TRANSLATIONS_SCRIPT);
-
 ?>
 <html>
 <head>
@@ -50,8 +49,6 @@ require_once(TRANSLATIONS_SCRIPT);
     <script src="scripts/gets/controllers/Map.Ctrl.js"></script>
     <script src="scripts/gets/controllers/Language.Ctrl.js"></script>
     <script src="scripts/gets/controllers/RoutesPage.Ctrl.js"></script>
-
-    <script src="scripts/gets/temp.js"></script>
     <script>
         $(document).ready(function() {
             Logger.useDefaults();
@@ -74,7 +71,7 @@ require_once(TRANSLATIONS_SCRIPT);
     <div class="main-content">
         <div class="action-menu">
             <?php
-            require_once('./widgets/PointsMain.inc');
+            require_once('./widgets/SocialsMain.inc');
             require_once('./widgets/PointInfo.inc');
             if (isset($_SESSION['g2t_token'])) {
                 require_once('./widgets/PointEdit.inc');
