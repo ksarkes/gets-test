@@ -76,6 +76,9 @@ MapController.prototype.getRoutesForTrack = function(track) {
 MapController.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
     this._map.placePointsOnMap(pointList, markerBaseLink);
 };
+MapController.prototype.placeSocialsOnMap = function(socialList) {
+    this._map.placeSocialsOnMap(socialList);
+}
 
 MapController.prototype.removePointsFromMap = function() {
     this._map.removePointsLayer();

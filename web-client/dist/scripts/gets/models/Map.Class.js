@@ -20,6 +20,7 @@ function MapClass() {
     this.searchArea = null;
     this.userMarker = null;
     this.pointsLayer = null;
+    this.socialsLayer = null;
 }
 
 // Route types
@@ -471,7 +472,6 @@ MapClass.prototype.getRoutesForTrack = function (track) {
 };
 
 MapClass.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
-
     if (!pointList) {
         throw new GetsWebClientException('Map Error', 'placePointsOnMap, pointList undefined or null.');
     }
@@ -487,6 +487,8 @@ MapClass.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 
 
         this.pointsLayer.addLayer(marker);
+
+        alert(JSON.stringify(marker));
 
         var popup = L.popup()
             .setContent(
@@ -512,6 +514,31 @@ MapClass.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
     }
 
     this.map.addLayer(this.pointsLayer);
+};
+
+
+MapClass.prototype.placeSocialsOnMap = function(socialList) {
+    this.socialsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
+
+    for (var i = 0; i < socialList.length; i++) {
+        var coords = socialList[i].coordinates.split(',');
+        var marker = L.marker([coords[0], coords[1]], {title: socialList[i].name, draggable: false}); //{icon: myIcon}
+        marker.uuid = socialList[i].uuid;
+        marker.title = socialList[i].name;
+        marker.category_id = socialList[i].category_id;
+
+        this.socialsLayer.addLayer(marker);
+
+        alert(JSON.stringify(marker));
+        var popup = L.popup()
+            .setContent(
+            '<b>' + socialList[i].name +
+            '</b><br>' + socialList[i].description
+        );
+        marker.bindPopup(popup);
+    }
+
+    this.map.addLayer(this.socialsLayer);
 };
 
 MapClass.prototype.closePopupInPointsLayer = function(id) {
