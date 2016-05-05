@@ -8,7 +8,7 @@ function RoutesPage(document, window) {
     this._categories = null;
     this._user = null;
     this._utils = null;
-
+    this._routes = null;
     this._mapCtrl = null;
 
     // Views
@@ -45,6 +45,10 @@ RoutesPage.prototype.initPage = function () {
     //TODO: почистить говно
     // try {
 
+    if(this._routes == null)
+    {
+        this._routes = [];
+    }
     // Init map
     if (this._mapCtrl == null) {
         this._mapCtrl = new MapController(this.document, this.window);
@@ -82,10 +86,10 @@ RoutesPage.prototype.initPage = function () {
     // TODO: набросать формы инфо
 /*    if (!this._socialInfo) {
         this._socialInfo = new SocialInfo(this.document, $(this.document).find('#social-info-page'));
-    }
+    }*/
     if (!this._routeInfo) {
         this._routeInfo = new RouteInfo(this.document, $(this.document).find('#route-info-page'));
-    } */
+    }
 
     //Init first page
     this.currentView = this._socialsMain;
@@ -117,7 +121,7 @@ RoutesPage.prototype.initPage = function () {
 
 
     this.downloadSocialsHandler();
-
+    // this.downloadPointsHandler();
     // get user's coordinates
     if (this.window.navigator.geolocation) {
         this.window.navigator.geolocation.getCurrentPosition(function (position) {
@@ -133,6 +137,57 @@ RoutesPage.prototype.initPage = function () {
     } else {
         Logger.debug('geolocation is not supported by this browser');
     }
+
+    $(this.document).on('click', '.route_to', function (e) {
+        e.preventDefault();
+        var toCoords = this.name.split(',');
+        var fromCoords = self._user.getUsersGeoPosition();
+        self.route(fromCoords.lat,fromCoords.lng,toCoords[0],toCoords[1]);
+    });
+};
+
+RoutesPage.prototype.downloadPointsHandler = function() {
+    var that = this;
+    try {
+        var formData = $(this.document).find('#point-main-form').serializeArray();
+
+        this._points.downLoadPoints(formData, function () {
+            var pointList = that._points.getPointList();
+            that._mapCtrl.removePointsFromMap();
+            that._mapCtrl.placePointsOnMap(pointList, {
+                url: '#form=' + PointsPage.POINT_INFO + '&point_uuid=',
+                text: $(that._pointInfo.getView()).data('putpoint')
+            });
+        });
+    } catch (Exception) {
+        MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
+        Logger.error(Exception.toString());
+    }
+};
+
+RoutesPage.prototype.route = function (fromLat,fromLng,toLat,toLng) {
+    var that = this;
+    var data = {
+        'fromLat': fromLat,
+        'fromLng': fromLng,
+        'toLat': toLat,
+        'toLng': toLng
+    };
+    $.ajax({
+        type: 'POST',
+        url: GET_ROUTES_ACTION,
+        dataType: 'json ',
+        data: "routeCoords=" + JSON.stringify(data),
+        success: function(response) {
+            that._routes = [];
+            that._mapCtrl.removeRoutesFromMap();
+            $.each(response, function (key, value) {
+               var tmpRoute = new RouteClass(value['distance'],value['weight'], value['type'],value['routePoints']);
+                that._mapCtrl.placeRouteOnMap(tmpRoute, '#form=' + RoutesPage.ROUTE_INFO + '&route_type=' + value['type']);
+                that._routes.push(tmpRoute);
+            });
+        }
+    });
 };
 
 RoutesPage.prototype.handleGeoLocationError = function (error) {
@@ -193,25 +248,6 @@ RoutesPage.prototype.showSocialInfo = function () {
     }
 };
 
-RoutesPage.prototype.showRouteInfo = function () {
-    try {
-
-        // TODO: отобразить в панели инфо о маршруте
-/*        this._headerView.changeOption($(this._pointAdd.getView()).data('pagetitleAdd'), 'glyphicon-chevron-left', '#form=main');
-        this._utils.clearAllInputFields(this._pointAdd.getView());
-        this._pointAdd.removeCustomFields();
-
-        this._pointAdd.placeCategoriesInPointAdd(this._categories.getCategories());
-
-        this.currentView.hideView();
-        this.currentView = this._pointAdd;
-        this.currentView.showView();*/
-    } catch (Exception) {
-        MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
-        Logger.error(Exception.toString());
-    }
-};
-
 RoutesPage.prototype.downloadSocialsHandler = function () {
     var that = this;
     try {
@@ -234,3 +270,17 @@ RoutesPage.prototype.downloadSocialsHandler = function () {
     }
 };
 
+RoutesPage.prototype.showRouteInfo = function () {
+    try {
+        this._headerView.changeOption($(this._routeInfo.getView()).data('pagetitle'), 'glyphicon-chevron-left', '#form=main');
+        var routeType = decodeURIComponent(this._utils.getHashVar('route_type'));
+        this._mapCtrl.setCurrentRouteLayer(routeType);
+        this._routeInfo.placeRouteInRouteInfo(this._routes, routeType);
+        this.currentView.hideView();
+        this.currentView = this._routeInfo;
+        this.currentView.showView();
+    } catch (Exception) {
+        MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
+        Logger.error(Exception.toString());
+    }
+};
