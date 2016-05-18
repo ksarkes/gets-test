@@ -21,6 +21,7 @@ function MapClass() {
     this.userMarker = null;
     this.pointsLayer = null;
     this.socialsLayer = null;
+    this.socialMarkers = null;
 }
 
 // Route types
@@ -524,6 +525,7 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
         marker.uuid = socialList[i].uuid;
         marker.title = socialList[i].title;
         marker.category_id = socialList[i].category_id;
+        this.socialMarkers.push(marker);
         this.socialsLayer.addLayer(marker);
 
         var popup = L.popup().setContent(socialList[i].title);
@@ -532,6 +534,14 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
     }
 
     this.map.addLayer(this.socialsLayer);
+};
+
+
+MapClass.prototype.setMapCenterOnSocial = function(uuid) {
+    alert("fds");
+/*    $.each(this.socialMarkers)
+        alert(this.uuid);
+    this.map.setView([latitude, longitude], 11);*/
 };
 
 MapClass.prototype.closePopupInPointsLayer = function(id) {
@@ -627,7 +637,6 @@ MapClass.prototype.checkTrack = function(track) {
 MapClass.prototype.setCenter = function(latitude, longitude) {
     this.map.setView([latitude, longitude], 11);
 };
-
 /**
  * Get center of a map.
  * 

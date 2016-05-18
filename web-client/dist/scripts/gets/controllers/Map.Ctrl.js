@@ -49,6 +49,10 @@ MapController.prototype.setMapCenter = function(latitude, longitude) {
     this._map.setCenter(latitude, longitude);
 };
 
+MapController.prototype.setMapCenterOnSocial = function(uuid) {
+    this._map.setMapCenterOnSocial(uuid);
+};
+
 MapController.prototype.getMapCenter = function() {
     return this._map.getCenter();
 };
@@ -78,7 +82,7 @@ MapController.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 };
 MapController.prototype.placeSocialsOnMap = function(socialList) {
     this._map.placeSocialsOnMap(socialList);
-}
+};
 
 MapController.prototype.removePointsFromMap = function() {
     this._map.removePointsLayer();

@@ -9,12 +9,14 @@ function SocialInfo(document, socialInfo) {
  * @param {Object} social Object contains social info.
  * @param {Boolean} isAuth Variable indicates is user authorized.
  */
-SocialInfo.prototype.placeSocialInSocialInfo = function(social, isAuth) {
+SocialInfo.prototype.placeSocialInSocialInfo = function(social, mapCtrl) {
     // Get all elements
     var nameElement = $(this.socialInfo).find('#social-info-name');
     var objectNameElement = $(this.socialInfo).find('#social-info-objectName');
     var routeElement = $(this.socialInfo).find('#social-info-route');
     var addressElement = $(this.socialInfo).find('#social-info-address');
+
+    //$(pointsInfoEdit).attr('href', '#form=social_info'  + "&social_uuid" + social.uuid + "#focus");
 
     // Clear value of all elements
     $(nameElement).text('');
@@ -33,6 +35,8 @@ SocialInfo.prototype.placeSocialInSocialInfo = function(social, isAuth) {
         $(routeElement).append(social.route);
     else
         $(routeElement).text('');
+
+    var focusButton = $('#social-map-focus');
 };
 
 SocialInfo.prototype.getView = function() {

@@ -71,7 +71,6 @@ RoutesPage.prototype.initPage = function () {
     }
 
     // Init views
-    // TODO: наклепать верстку и установить кошерные айдишники, сделать классы вьюшек
     if (!this._socialsMain) {
         this._socialsMain = new SocialsMain(this.document, $(this.document).find('#socials-main-page'));
     }
@@ -79,8 +78,7 @@ RoutesPage.prototype.initPage = function () {
         this._headerView = new HeaderView(this.document, $(this.document).find('.navbar'));
     }
 
-    // TODO: набросать формы инфо
-   if (!this._socialInfo) {
+    if (!this._socialInfo) {
         this._socialInfo = new SocialInfo(this.document, $(this.document).find('#social-info-page'));
     }
 /*    if (!this._routeInfo) {
@@ -115,6 +113,13 @@ RoutesPage.prototype.initPage = function () {
         self._user.logout();
     });
 
+    $(this.document).on('click', '#social-map-focus', function(e) {
+        e.preventDefault();
+        // TODO:
+        var asd = self._socials.social.uuid;
+        self._mapCtrl.setMapCenterOnSocial(asd);
+
+    });
 
     this.downloadSocialsHandler();
 
@@ -176,14 +181,9 @@ RoutesPage.prototype.showSocialInfo = function () {
         }
 
         var social = this._socials.findSocialInsocialList(socialUUID);
-        this._socialInfo.placeSocialInSocialInfo(social, this._user.isLoggedIn());
-        // TODO: найти соц объект в списке
-        /*
-        this._socials.findsocialInsocialList(socialUUID);
+        this._socialInfo.placeSocialInSocialInfo(social, this._mapCtrl);
 
-        Logger.debug(this._socials.getsocial());
-        this._socialInfo.placesocialInsocialInfo(this._socials.getsocial(), this._user.isLoggedIn());
-*/
+
         this.currentView.hideView();
         this.currentView = this._socialInfo;
         this.currentView.showView();
@@ -191,6 +191,8 @@ RoutesPage.prototype.showSocialInfo = function () {
         MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
         Logger.error(Exception.toString());
     }
+    this._socialInfo = null;
+    this._socialInfo = new SocialInfo(this.document, $(this.document).find('#social-info-page'));
 };
 
 RoutesPage.prototype.showRouteInfo = function () {

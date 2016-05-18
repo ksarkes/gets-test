@@ -2,6 +2,7 @@
 function SocialsClass() {
     this.socialList = null;
     this.scopeList = null;
+    this.social = null;
     this.needsocialListUpdate = false;
     this.needsocialUpdate = false;
 }
@@ -79,7 +80,6 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             objectName: data[i].ObjectName,
                             category_id: 1
                         };
-
                     }
                     self.socialList = socialsList;
                     if (callback) {
@@ -145,6 +145,7 @@ SocialsClass.prototype.findSocialInsocialList = function(uuid) {
     }
     for (var i = 0, len = this.socialList.length; i < len; i++) {
         if (this.socialList[i].uuid.trim() === uuid.trim()) {
+            this.social = this.socialList[i];
             return this.socialList[i];
         }
     }
