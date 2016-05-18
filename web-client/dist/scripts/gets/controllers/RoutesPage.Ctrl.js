@@ -29,7 +29,7 @@ RoutesPage.prototype.changeForm = function () {
     var form = this._utils.getHashVar('form');
     Logger.debug('changeForm form = ' + form);
     if (form === RoutesPage.MAIN) {
-        this.showRoutesMain();
+        this.showSocialsMain();
     } else if (form === RoutesPage.SOCIAL_INFO) {
         this.showSocialInfo();
     } else if (form === RoutesPage.ROUTE_INFO) {
@@ -80,10 +80,10 @@ RoutesPage.prototype.initPage = function () {
     }
 
     // TODO: набросать формы инфо
-/*    if (!this._socialInfo) {
+   if (!this._socialInfo) {
         this._socialInfo = new SocialInfo(this.document, $(this.document).find('#social-info-page'));
     }
-    if (!this._routeInfo) {
+/*    if (!this._routeInfo) {
         this._routeInfo = new RouteInfo(this.document, $(this.document).find('#route-info-page'));
     } */
 
@@ -152,7 +152,7 @@ RoutesPage.prototype.handleGeoLocationError = function (error) {
     }
 };
 
-RoutesPage.prototype.showRoutesMain = function () {
+RoutesPage.prototype.showSocialsMain = function () {
     try {
         this._headerView.clearOption();
 
@@ -170,22 +170,22 @@ RoutesPage.prototype.showRoutesMain = function () {
 RoutesPage.prototype.showSocialInfo = function () {
     try {
         this._headerView.changeOption($(this._socialInfo.getView()).data('pagetitle'), 'glyphicon-chevron-left', '#form=main');
-
-        var pointUUID = decodeURIComponent(this._utils.getHashVar('point_uuid'));
-        if (!pointUUID) {
-            throw new GetsWebClientException('Track Page Error', 'showSocialInfo, hash parameter point uuid undefined');
+        var socialUUID = decodeURIComponent(this._utils.getHashVar('social_uuid'));
+        if (!socialUUID) {
+            throw new GetsWebClientException('Track Page Error', 'showSocialInfo, hash parameter social uuid undefined');
         }
 
-
+        var social = this._socials.findSocialInsocialList(socialUUID);
+        this._socialInfo.placeSocialInSocialInfo(social, this._user.isLoggedIn());
         // TODO: найти соц объект в списке
         /*
-        this._socials.findPointInPointList(pointUUID);
+        this._socials.findsocialInsocialList(socialUUID);
 
-        Logger.debug(this._points.getPoint());
-        this._pointInfo.placePointInPointInfo(this._points.getPoint(), this._user.isLoggedIn());
+        Logger.debug(this._socials.getsocial());
+        this._socialInfo.placesocialInsocialInfo(this._socials.getsocial(), this._user.isLoggedIn());
 */
         this.currentView.hideView();
-        this.currentView = this._pointInfo;
+        this.currentView = this._socialInfo;
         this.currentView.showView();
     } catch (Exception) {
         MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
@@ -197,7 +197,7 @@ RoutesPage.prototype.showRouteInfo = function () {
     try {
 
         // TODO: отобразить в панели инфо о маршруте
-/*        this._headerView.changeOption($(this._pointAdd.getView()).data('pagetitleAdd'), 'glyphicon-chevron-left', '#form=main');
+/*        this._headerView.changeOption($(this._socialAdd.getView()).data('pagetitleAdd'), 'glyphicon-chevron-left', '#form=main');
         this._utils.clearAllInputFields(this._pointAdd.getView());
         this._pointAdd.removeCustomFields();
 

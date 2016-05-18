@@ -45,6 +45,7 @@ require_once(TRANSLATIONS_SCRIPT);
     <script src="scripts/gets/views/Header.View.js"></script>
     <script src="scripts/gets/views/Message.View.js"></script>
     <script src="scripts/gets/views/SocialsMain.View.js"></script>
+    <script src="scripts/gets/views/SocialInfo.View.js"></script>
     <script src="scripts/gets/controllers/PointsPage.Ctrl.js"></script>
     <script src="scripts/gets/controllers/Map.Ctrl.js"></script>
     <script src="scripts/gets/controllers/Language.Ctrl.js"></script>
@@ -72,7 +73,7 @@ require_once(TRANSLATIONS_SCRIPT);
         <div class="action-menu">
             <?php
             require_once('./widgets/SocialsMain.inc');
-            require_once('./widgets/PointInfo.inc');
+            require_once('./widgets/SocialInfo.inc');
             if (isset($_SESSION['g2t_token'])) {
                 require_once('./widgets/PointEdit.inc');
             }

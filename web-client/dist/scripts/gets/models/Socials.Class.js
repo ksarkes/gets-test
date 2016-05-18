@@ -74,8 +74,12 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             // our internal uuid ¯\_(ツ)_/¯
                             uuid: i,
                             title: data[i].Name,
+                            route: data[i].Route,
+                            address: data[i].Address,
+                            objectName: data[i].ObjectName,
                             category_id: 1
                         };
+
                     }
                     self.socialList = socialsList;
                     if (callback) {
@@ -141,8 +145,7 @@ SocialsClass.prototype.findSocialInsocialList = function(uuid) {
     }
     for (var i = 0, len = this.socialList.length; i < len; i++) {
         if (this.socialList[i].uuid.trim() === uuid.trim()) {
-            this.social = this.socialList[i];
-            return this.social;
+            return this.socialList[i];
         }
     }
 };

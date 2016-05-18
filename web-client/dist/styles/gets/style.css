@@ -99,6 +99,12 @@ html, body {
     padding: 10px;
 }
 
+.action-menu-inner-content-social-info {
+    display: block;
+    position: relative;
+    padding: 20px;
+}
+
 .action-menu-toolbar-container {
     display: block;
     position: relative;
@@ -109,6 +115,20 @@ html, body {
     display: block;
     position: relative;
     margin-top: 10px;
+}
+
+.main-block-bold {
+    display: block;
+    position: relative;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.main-block-italic {
+    display: block;
+    position: relative;
+    margin-top: 10px;
+    font-style: italic;
 }
 
 .top-margin {
