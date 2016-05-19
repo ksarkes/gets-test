@@ -16,6 +16,7 @@ function RoutesPage(document, window) {
     this._headerView = null;
     this._socialInfo = null;
     this._routeInfo = null;
+    this._pointsMain = null;
 
     this.currentView = null;
 }
@@ -24,6 +25,8 @@ function RoutesPage(document, window) {
 RoutesPage.MAIN = 'main';
 RoutesPage.SOCIAL_INFO = 'social_info';
 RoutesPage.ROUTE_INFO = 'route_info';
+RoutesPage.ADD_ROUTE = 'add_route';
+RoutesPage.POINT_INFO = 'route_info';
 
 RoutesPage.prototype.changeForm = function () {
     var form = this._utils.getHashVar('form');
@@ -32,6 +35,8 @@ RoutesPage.prototype.changeForm = function () {
         this.showRoutesMain();
     } else if (form === RoutesPage.SOCIAL_INFO) {
         this.showSocialInfo();
+    } else if (form === RoutesPage.ADD_ROUTE) {
+        this.addRouteFromMap();
     } else if (form === RoutesPage.ROUTE_INFO) {
         this.showRouteInfo();
     } else if (typeof form === 'undefined') {
@@ -82,6 +87,10 @@ RoutesPage.prototype.initPage = function () {
     if (!this._headerView) {
         this._headerView = new HeaderView(this.document, $(this.document).find('.navbar'));
     }
+    if (!this._pointsMain) {
+        this._pointsMain = new PointsMain(this.document, $(this.document).find('#points-main-page'));
+        this._pointsMain.initView(this._user.isLoggedIn());
+    }
 
     // TODO: набросать формы инфо
 /*    if (!this._socialInfo) {
@@ -130,7 +139,10 @@ RoutesPage.prototype.initPage = function () {
             self._mapCtrl.setMapCenter(position.coords.latitude, position.coords.longitude);
             self._socialsMain.setLatitude(Math.floor(position.coords.latitude * 10000) / 10000);
             self._socialsMain.setLongitude(Math.floor(position.coords.longitude * 10000) / 10000);
+            self._pointsMain.setLatitude(Math.floor(position.coords.latitude * 10000) / 10000);
+            self._pointsMain.setLongitude(Math.floor(position.coords.longitude * 10000) / 10000);
 
+            self.downloadPointsHandler();
             //self.downloadSocialsHandler();
 
         }, this.handleGeoLocationError);
@@ -147,18 +159,10 @@ RoutesPage.prototype.initPage = function () {
 };
 
 RoutesPage.prototype.downloadPointsHandler = function() {
-    var that = this;
     try {
         var formData = $(this.document).find('#point-main-form').serializeArray();
 
-        this._points.downLoadPoints(formData, function () {
-            var pointList = that._points.getPointList();
-            that._mapCtrl.removePointsFromMap();
-            that._mapCtrl.placePointsOnMap(pointList, {
-                url: '#form=' + PointsPage.POINT_INFO + '&point_uuid=',
-                text: $(that._pointInfo.getView()).data('putpoint')
-            });
-        });
+        this._points.downLoadPoints(formData, function () {});
     } catch (Exception) {
         MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
         Logger.error(Exception.toString());
@@ -179,13 +183,15 @@ RoutesPage.prototype.route = function (fromLat,fromLng,toLat,toLng) {
         dataType: 'json ',
         data: "routeCoords=" + JSON.stringify(data),
         success: function(response) {
+            window.location = "routes.php?lang=ru#form=main";
             that._routes = [];
             that._mapCtrl.removeRoutesFromMap();
             $.each(response, function (key, value) {
-               var tmpRoute = new RouteClass(value['distance'],value['weight'], value['type'],value['routePoints']);
-                that._mapCtrl.placeRouteOnMap(tmpRoute, '#form=' + RoutesPage.ROUTE_INFO + '&route_type=' + value['type']);
+               var tmpRoute = new RouteClass(value['distance'],value['weight'], value['type'],value['routePoints'],value['obstacles']);
+                that._mapCtrl.placeRouteOnMap(tmpRoute, that._points, '#form=' + RoutesPage.ROUTE_INFO + '&route_type=' + value['type']);
                 that._routes.push(tmpRoute);
             });
+            window.location = "routes.php?lang=ru#form=route_info&route_type=fastest";
         }
     });
 };
@@ -275,12 +281,20 @@ RoutesPage.prototype.showRouteInfo = function () {
         this._headerView.changeOption($(this._routeInfo.getView()).data('pagetitle'), 'glyphicon-chevron-left', '#form=main');
         var routeType = decodeURIComponent(this._utils.getHashVar('route_type'));
         this._mapCtrl.setCurrentRouteLayer(routeType);
-        this._routeInfo.placeRouteInRouteInfo(this._routes, routeType);
+        this._routeInfo.placeRouteInRouteInfo(this._routes, this._points,  routeType);
         this.currentView.hideView();
         this.currentView = this._routeInfo;
         this.currentView.showView();
     } catch (Exception) {
         MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
+        window.location = "routes.php?lang=ru#form=main";
         Logger.error(Exception.toString());
     }
+};
+
+RoutesPage.prototype.addRouteFromMap = function () {
+    var toLat = decodeURIComponent(this._utils.getHashVar('lat'));
+    var toLng = decodeURIComponent(this._utils.getHashVar('lng'));
+    var fromCoords = this._user.getUsersGeoPosition();
+    this.route(fromCoords.lat,fromCoords.lng,toLat,toLng);
 };

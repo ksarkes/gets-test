@@ -20,6 +20,7 @@ function MapClass() {
     this.searchArea = null;
     this.userMarker = null;
     this.pointsLayer = null;
+    this.routesPointsLayer = null;
     this.socialsLayer = null;
     this.routeLayer = null;
     this.routeLayerArray = null;
@@ -59,7 +60,13 @@ MapClass.prototype.initMap = function() {
             contextmenuItems: [{
                 text: 'Add marker',
                 callback: function () { alert('click add marker') }
-            }]
+            },
+                {
+                    text: 'Проложить маршрут',
+                    callback: function (e) {
+                        window.location = "routes.php?lang=ru#form=add_route&lat=" + e.latlng.lat +"&lng=" + e.latlng.lng;
+                    }
+                }]
         });
     }
         
@@ -529,8 +536,28 @@ function clickFeature(e) {
     var layer = e.target;
     layer.bringToFront();
 }
-MapClass.prototype.placeRouteOnMap = function (route, routeBaseLink) {
+MapClass.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
+        var that = this;
         var coords = [];
+        this.routesPointsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
+        $.each(route.getObstacles(), function (id, val) {
+            var tmpPoint = points.findPointInPointList(val['uuid']);
+            var coords = tmpPoint.coordinates.split(',');
+            var marker = L.marker([coords[1], coords[0]], {title: tmpPoint.name, draggable: false}); //{icon: myIcon}
+            marker.uuid = tmpPoint.uuid;
+            marker.title = tmpPoint.name;
+            marker.category_id = tmpPoint.category_id;
+
+
+            that.routesPointsLayer.addLayer(marker);
+
+            var popup = L.popup()
+                .setContent(
+                    '<b>' + tmpPoint.name +
+                    '</b><br>' +tmpPoint.description);
+            marker.bindPopup(popup);
+        });
+        this.routeLayer.addLayer(this.routesPointsLayer);
         $.each(route.getRouteCoords(), function (id, val) {
             coords.push([val['lng'],val['lat']]);
         });

@@ -606,7 +606,6 @@ PointsPage.prototype.downloadPointsHandler = function() {
     try {
         this._pointsMain.showOverlay();
         var formData = $(this.document).find('#point-main-form').serializeArray();
-
         this._points.downLoadPoints(formData, function () {
             var pointList = that._points.getPointList();
             /*var points_json = "[";

@@ -2,12 +2,12 @@
  * Created by artyo on 03.05.2016.
  */
 
-function RouteClass(dist, weight, type, routeCoods) {
+function RouteClass(dist, weight, type, routeCoords, obstacles) {
     this.distance = dist;
     this.weight = weight;
-    this.obstacles = null;
+    this.obstacles = obstacles;
     this.type = type;
-    this.routeCoords = routeCoods;
+    this.routeCoords = routeCoords;
 };
 
 RouteClass.prototype.getDistance = function () {
@@ -18,7 +18,7 @@ RouteClass.prototype.getWeight = function () {
     return this.weight;
 };
 
-RouteClass.prototype.getObstacles = function (obstaclesUUID, pointList) {
+RouteClass.prototype.getObstacles = function () {
     return this.obstacles;
 };
 

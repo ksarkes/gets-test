@@ -104,15 +104,25 @@ html, body {
     position: relative;
     padding: 10px;
 }
+.full_obstacles_info {
+    display: none;
+}
 .distance-route-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 80%;
+    margin: 0 auto;
+    height:auto;
 }
 .distanceBtn {
-    float: left;
-    width: 100px;
+    width: 90px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 3px;
     cursor: pointer;
 }
+
 .main-block {
     display: block;
     position: relative;
