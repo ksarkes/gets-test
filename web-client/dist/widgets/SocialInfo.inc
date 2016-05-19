@@ -6,10 +6,12 @@ echo    '<div id="social-info-page" class="action-menu-container hidden" data-pa
                 <div class="main-block-italic" id="social-info-objectName" align="center"></div>
                 <div class="main-block" id="social-info-address"></div>
                 <div class="main-block" id="social-info-route"></div>
+                <div align="center">
                     <div class="btn-group">
-                        <a id="social-map-focus" class="btn btn-default" title="Показать на карте" role="button">
+                        <a id="social-map-focus" class="btn btn-default" title="Показать на карте" role="button" >
                             Показать на карте
                         </a>
+                    </div>
                     </div>
             </div>
         </div>';

@@ -191,8 +191,6 @@ RoutesPage.prototype.showSocialInfo = function () {
         MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
         Logger.error(Exception.toString());
     }
-    this._socialInfo = null;
-    this._socialInfo = new SocialInfo(this.document, $(this.document).find('#social-info-page'));
 };
 
 RoutesPage.prototype.showRouteInfo = function () {
