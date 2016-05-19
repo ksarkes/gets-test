@@ -62,7 +62,6 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                 };
             }
             self.scopeList = scopeList;
-
             $.ajax({
                 type: 'GET',
                 url: 'http://ds-karelia.opti-soft.ru/api/getPassports?latitude=' + lat + '&longitude=' + lng + scopes + '&radius=' + radius + '&onlyAgreed=false',
@@ -74,7 +73,8 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             // our internal uuid ¯\_(ツ)_/¯
                             uuid: i,
                             title: data[i].Name,
-                            category_id: 1
+                            category_id: 1,
+                            scope: data[i].Scopes[0].Id
                         };
                     }
                     self.socialList = socialsList;

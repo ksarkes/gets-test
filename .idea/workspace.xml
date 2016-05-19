@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08dd7caf-55ad-4f80-b700-96f5a0496d93" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/actions/graphhopper-priority.jar" afterPath="$PROJECT_DIR$/web-client/dist/actions/graphhopper-priority.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/edges" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/geometry" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/location_index" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/names" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/nodes" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/description.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-client/dist/actions/gh/polygon.poly" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/PointsPage.Ctrl.js" afterPath="$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/PointsPage.Ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/RoutesPage.Ctrl.js" afterPath="$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/RoutesPage.Ctrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Map.Class.js" afterPath="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Map.Class.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Route.Class.js" afterPath="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Route.Class.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/scripts/gets/views/RouteInfo.View.js" afterPath="$PROJECT_DIR$/web-client/dist/scripts/gets/views/RouteInfo.View.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/styles/gets/style.css" afterPath="$PROJECT_DIR$/web-client/dist/styles/gets/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/widgets/RouteInfo.inc" afterPath="$PROJECT_DIR$/web-client/dist/widgets/RouteInfo.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Socials.Class.js" afterPath="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Socials.Class.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-client/dist/scripts/gets/views/SocialsMain.View.js" afterPath="$PROJECT_DIR$/web-client/dist/scripts/gets/views/SocialsMain.View.js" />
     </list>
     <ignored path="gets-test.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,14 +45,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RoutesPage.Ctrl.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RoutesPage.Ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/RoutesPage.Ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="267" column="67" selection-start-line="267" selection-start-column="67" selection-end-line="267" selection-end-column="67" />
-              <folding>
-                <marker date="1463618576687" expanded="true" signature="38:238" placeholder="{...}" />
-              </folding>
+            <state relative-caret-position="175">
+              <caret line="268" column="49" selection-start-line="268" selection-start-column="49" selection-end-line="268" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Map.Ctrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/Map.Ctrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="82" column="21" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SocialsMain.View.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/views/SocialsMain.View.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="53" column="21" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -57,7 +78,7 @@
       <file leaf-file-name="Points.Class.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Points.Class.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
+            <state relative-caret-position="2040">
               <caret line="148" column="33" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="33" />
               <folding>
                 <element signature="e#651#683#0" expanded="false" />
@@ -77,14 +98,13 @@
       <file leaf-file-name="Map.Class.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Map.Class.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
-              <caret line="491" column="56" selection-start-line="491" selection-start-column="34" selection-end-line="491" selection-end-column="56" />
+            <state relative-caret-position="192">
+              <caret line="620" column="42" selection-start-line="620" selection-start-column="42" selection-end-line="620" selection-end-column="42" />
               <folding>
-                <marker date="1463616537881" expanded="true" signature="463:750" placeholder="{...}" />
-                <marker date="1463616537881" expanded="true" signature="8956:9014" placeholder="..." />
-                <marker date="1463616537881" expanded="true" signature="10386:10448" placeholder="..." />
-                <marker date="1463616537881" expanded="true" signature="11701:11765" placeholder="..." />
-                <marker date="1463616537881" expanded="true" signature="13044:13112" placeholder="..." />
+                <marker date="1463628400633" expanded="true" signature="8956:9014" placeholder="..." />
+                <marker date="1463628400633" expanded="true" signature="10386:10448" placeholder="..." />
+                <marker date="1463628400633" expanded="true" signature="11701:11765" placeholder="..." />
+                <marker date="1463628400633" expanded="true" signature="13044:13112" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -93,8 +113,18 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-client/dist/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="77" column="44" selection-start-line="77" selection-start-column="44" selection-end-line="77" selection-end-column="44" />
+            <state relative-caret-position="357">
+              <caret line="75" column="44" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Socials.Class.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Socials.Class.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="76" column="31" selection-start-line="76" selection-start-column="31" selection-end-line="76" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -103,7 +133,7 @@
       <file leaf-file-name="PointInfo.inc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-client/dist/widgets/PointInfo.inc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
+            <state relative-caret-position="374">
               <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="69" selection-end-column="22" />
               <folding />
             </state>
@@ -140,7 +170,6 @@
         <option value="$PROJECT_DIR$/web-client/dist/actions/jsonWrite.php" />
         <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/models/User.Class.js" />
         <option value="$PROJECT_DIR$/web-client/dist/actions/generateActionNames.php" />
-        <option value="$PROJECT_DIR$/web-client/dist/actions/getRoutes.php" />
         <option value="$PROJECT_DIR$/web-client/dist/widgets/PointInfo.inc" />
         <option value="$PROJECT_DIR$/web-client/dist/routes.php" />
         <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/views/PointInfo.View.js" />
@@ -149,11 +178,14 @@
         <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Points.Class.js" />
         <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Route.Class.js" />
         <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/Map.Ctrl.js" />
-        <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Map.Class.js" />
         <option value="$PROJECT_DIR$/web-client/dist/widgets/RouteInfo.inc" />
-        <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/RoutesPage.Ctrl.js" />
         <option value="$PROJECT_DIR$/web-client/dist/styles/gets/style.css" />
         <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/views/RouteInfo.View.js" />
+        <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/RoutesPage.Ctrl.js" />
+        <option value="$PROJECT_DIR$/web-client/dist/actions/getRoutes.php" />
+        <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Socials.Class.js" />
+        <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/models/Map.Class.js" />
+        <option value="$PROJECT_DIR$/web-client/dist/scripts/gets/views/SocialsMain.View.js" />
       </list>
     </option>
   </component>
@@ -197,7 +229,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -249,169 +280,14 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-client" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-client" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-client" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-client" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-client" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gets-test" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-client" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../RoadMap" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../accessibility_map" />
     <property name="SearchEverywhereHistoryKey" value="extended_data&#9;null&#9;null&#10;getCategoriesAsArray&#9;null&#9;null" />
   </component>
   <component name="RunManager">
@@ -469,6 +345,7 @@
       <workItem from="1462443881308" duration="542000" />
       <workItem from="1462983392842" duration="1930000" />
       <workItem from="1463586289829" duration="23004000" />
+      <workItem from="1463626410981" duration="2873000" />
     </task>
     <task id="LOCAL-00001" summary="routing">
       <created>1462444221389</created>
@@ -481,7 +358,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79785000" />
+    <option name="totallyTimeSpent" value="82658000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -489,9 +366,9 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23890339" sideWeight="0.505" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23890339" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23890339" sideWeight="0.495" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -642,14 +519,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/views/SocialsMain.View.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="134" column="2" selection-start-line="134" selection-start-column="2" selection-end-line="134" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-client/dist/widgets/Header.inc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -686,13 +555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/dist/widgets/SocialsMain.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-client/dist/translations/translations.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -708,23 +570,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Socials.Class.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="70" column="41" selection-start-line="70" selection-start-column="41" selection-end-line="70" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-client/dist/actions/getRoute.php" />
-    <entry file="file://$PROJECT_DIR$/web-client/dist/actions/getRoutes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-client/dist/tracks.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -746,34 +592,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
           <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
-          <folding>
-            <marker date="1462205055951" expanded="true" signature="77:6018" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="203:709" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="263:690" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="307:648" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="474:621" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="752:5841" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="828:5812" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="882:5789" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="934:1333" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="987:1302" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1145:1268" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1422:5762" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1475:5731" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1579:5696" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1640:3031" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1830:2988" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1903:2941" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="1974:2394" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="2465:2890" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="3107:3415" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="3611:3967" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="3716:3924" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="4028:4354" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="5390:5656" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="5893:6003" placeholder="..." />
-            <marker date="1462205055951" expanded="true" signature="5950:5972" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -781,15 +599,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="70" column="50" selection-start-line="70" selection-start-column="50" selection-end-line="70" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/Map.Ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-53">
-          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -831,43 +640,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/dist/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="77" column="44" selection-start-line="77" selection-start-column="44" selection-end-line="77" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-client/dist/widgets/PointInfo.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
+        <state relative-caret-position="374">
           <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="69" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Map.Class.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="491" column="56" selection-start-line="491" selection-start-column="34" selection-end-line="491" selection-end-column="56" />
-          <folding>
-            <marker date="1463616537881" expanded="true" signature="463:750" placeholder="{...}" />
-            <marker date="1463616537881" expanded="true" signature="8956:9014" placeholder="..." />
-            <marker date="1463616537881" expanded="true" signature="10386:10448" placeholder="..." />
-            <marker date="1463616537881" expanded="true" signature="11701:11765" placeholder="..." />
-            <marker date="1463616537881" expanded="true" signature="13044:13112" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Points.Class.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
+        <state relative-caret-position="2040">
           <caret line="148" column="33" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="33" />
           <folding>
             <element signature="e#651#683#0" expanded="false" />
@@ -887,18 +673,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1156">
           <caret line="68" column="61" selection-start-line="68" selection-start-column="61" selection-end-line="68" selection-end-column="61" />
-          <folding>
-            <marker date="1463624086030" expanded="true" signature="1840:1879" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="1880:2024" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="1880:2053" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="1880:2516" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="1880:3627" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="3090:3230" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="3090:3231" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="3090:3577" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="3090:3578" placeholder="..." />
-            <marker date="1463624086030" expanded="true" signature="3090:3604" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -922,15 +697,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-          <folding>
-            <marker date="1463617444147" expanded="true" signature="180:983" placeholder="..." />
-            <marker date="1463617444147" expanded="true" signature="232:968" placeholder="..." />
-            <marker date="1463617444147" expanded="true" signature="304:946" placeholder="..." />
-            <marker date="1463617444147" expanded="true" signature="366:718" placeholder="..." />
-            <marker date="1463617444147" expanded="true" signature="424:443" placeholder="..." />
-            <marker date="1463617444147" expanded="true" signature="529:548" placeholder="..." />
-            <marker date="1463617444147" expanded="false" signature="636:655" placeholder="..." />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-client/dist/actions/getRoutes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-client/dist/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="75" column="44" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -942,13 +724,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web-client/dist/widgets/SocialsMain.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="61" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
+          <folding>
+            <marker date="1463626374506" expanded="true" signature="78:2055" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="205:718" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="265:699" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="309:657" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="481:630" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="788:1740" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="1792:1890" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="1849:1871" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="1942:2040" placeholder="..." />
+            <marker date="1463626374506" expanded="true" signature="1999:2021" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/Map.Ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="82" column="21" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Socials.Class.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="76" column="31" selection-start-line="76" selection-start-column="31" selection-end-line="76" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/models/Map.Class.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="620" column="42" selection-start-line="620" selection-start-column="42" selection-end-line="620" selection-end-column="42" />
+          <folding>
+            <marker date="1463628400633" expanded="true" signature="8956:9014" placeholder="..." />
+            <marker date="1463628400633" expanded="true" signature="10386:10448" placeholder="..." />
+            <marker date="1463628400633" expanded="true" signature="11701:11765" placeholder="..." />
+            <marker date="1463628400633" expanded="true" signature="13044:13112" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/controllers/RoutesPage.Ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="267" column="67" selection-start-line="267" selection-start-column="67" selection-end-line="267" selection-end-column="67" />
-          <folding>
-            <marker date="1463618576687" expanded="true" signature="38:238" placeholder="{...}" />
-          </folding>
+        <state relative-caret-position="175">
+          <caret line="268" column="49" selection-start-line="268" selection-start-column="49" selection-end-line="268" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-client/dist/scripts/gets/views/SocialsMain.View.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="53" column="21" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
