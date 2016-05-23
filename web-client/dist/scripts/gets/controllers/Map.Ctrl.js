@@ -83,7 +83,9 @@ MapController.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 MapController.prototype.placeSocialsOnMap = function(socialList) {
     this._map.placeSocialsOnMap(socialList);
 };
-
+MapController.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
+    this._map.placeSocialsByCategoryOnMap(categoryId);
+};
 MapController.prototype.removePointsFromMap = function() {
     this._map.removePointsLayer();
 };

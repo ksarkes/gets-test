@@ -31,6 +31,7 @@ RoutesPage.prototype.changeForm = function () {
     if (form === RoutesPage.MAIN) {
         this.showSocialsMain();
     } else if (form === RoutesPage.SOCIAL_INFO) {
+        $("#social-all-access").html("Показать все категории");
         this.showSocialInfo();
     } else if (form === RoutesPage.ROUTE_INFO) {
         this.showRouteInfo();
@@ -115,10 +116,21 @@ RoutesPage.prototype.initPage = function () {
 
     $(this.document).on('click', '#social-map-focus', function(e) {
         e.preventDefault();
-        // TODO:
-        var asd = self._socials.social.uuid;
-        self._mapCtrl.setMapCenterOnSocial(asd);
+        self._mapCtrl.setMapCenterOnSocial(self._socials.social.uuid);
+    });
 
+    $(this.document).on('click', '#social-all-access', function(e) {
+        e.preventDefault();
+        if ($(".invisibleAccessibility").css("display") == "none")
+        {
+            $(".invisibleAccessibility").css("display", "block");
+            $("#social-all-access").html("Скрыть невыбранные категории");
+        }
+        else
+        {
+            $(".invisibleAccessibility").css("display", "none");
+            $("#social-all-access").html("Показать все категории");
+        }
     });
 
     this.downloadSocialsHandler();
@@ -227,6 +239,7 @@ RoutesPage.prototype.downloadSocialsHandler = function () {
             that._socialsMain.placeScopesInScopeList(scopeList);
             that._mapCtrl.placeSocialsOnMap(socialList);
             that._socialsMain.hideOverlay();
+            //that._mapCtrl.placeSocialsByCategoryOnMap(1);
         });
     } catch (Exception) {
         MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);

@@ -15,7 +15,7 @@ SocialInfo.prototype.placeSocialInSocialInfo = function(social, mapCtrl) {
     var objectNameElement = $(this.socialInfo).find('#social-info-objectName');
     var routeElement = $(this.socialInfo).find('#social-info-route');
     var addressElement = $(this.socialInfo).find('#social-info-address');
-
+    var accessElement = $(this.socialInfo).find('#social-info-access');
     //$(pointsInfoEdit).attr('href', '#form=social_info'  + "&social_uuid" + social.uuid + "#focus");
 
     // Clear value of all elements
@@ -23,6 +23,7 @@ SocialInfo.prototype.placeSocialInSocialInfo = function(social, mapCtrl) {
     $(objectNameElement).text('');
     $(routeElement).text('Как добраться: ');
     $(addressElement).text('');
+    $(accessElement).text('');
 
     // Then fill elemnts with new values
     if (social.title != null)
@@ -33,10 +34,10 @@ SocialInfo.prototype.placeSocialInSocialInfo = function(social, mapCtrl) {
         $(addressElement).text(social.address);
     if (social.route != null)
         $(routeElement).append(social.route);
+    if (social.access != null)
+        $(accessElement).append(social.access);
     else
         $(routeElement).text('');
-
-    var focusButton = $('#social-map-focus');
 };
 
 SocialInfo.prototype.getView = function() {

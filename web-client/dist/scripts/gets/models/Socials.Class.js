@@ -19,7 +19,7 @@ SocialsClass.prototype.isScopeListDownloaded = function () {
 };
 
 SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
-    var lat = 61.784403, lng = 34.344882, radius = 7, categoryId = 1;
+    var lat = 61.784403, lng = 34.344882, radius = 7, categoryId = 3;
 
     $(paramsObj).each(function (idx, value) {
         if (value.name === 'category_id') {
@@ -52,6 +52,7 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
         url: 'http://ds-karelia.opti-soft.ru/api/getListScopes',
         dataType: 'jsonp',
         success: function (scopeData) {
+            alert("da");
             for (var i in scopeData) {
                 var opt = document.createElement("option");
                 opt.innerHTML = scopeData[i].Name;
@@ -70,6 +71,46 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                 dataType: 'jsonp',
                 success: function (data) {
                     for (var i in data) {
+                        var imgUrl;
+                        if (data[i].Accessibility[categoryId - 1].Categorie.Id == categoryId && data[i].Accessibility[categoryId - 1].MaintenanceForm)
+                            switch (data[i].Accessibility[categoryId - 1].MaintenanceForm.Id) {
+                                // mother of god
+                                case 0:
+                                    imgUrl = 'http://st09.karelia.ru/nvd4j6/a37ecbd31898aa68cd57465999baf0aa/27a5e607be77703bb9462083ca9576f0/ic_location_green.png';
+                                    break;
+                                case 1:
+                                    imgUrl = 'http://st09.karelia.ru/nvd4j6/0f1cfd750b34259c406741763eb371aa/f2b19583ecdf5324b8660e3ad49b6116/ic_location_yellow.png';
+                                    break;
+                                case 2:
+                                    imgUrl = 'http://st09.karelia.ru/nvd4j6/2549e824fcd0f795821b6a319070bbaa/af29b0af99d42367513bd3a075dc0a0d/ic_location_red.png';
+                                    break;
+                                case 3:
+                                    imgUrl = 'http://st09.karelia.ru/nvd4j6/19f0ae0a47fe5277c118b218e66864aa/1c7c30bdf2cbc1da9c839d3452369cfc/ic_location_gray.png';
+                                    break;
+                                default:
+                                    continue;
+                            }
+                        var access = "";
+                        for(var j in data[i].Accessibility)
+                        {
+                            if(data[i].Accessibility[j].Categorie.Id == categoryId)
+                                access += '<div>';
+                            else
+                                access += '<div class = invisibleAccessibility>';
+                            if (data[i].Accessibility[j].Categorie)
+                                access += '<br><div align="center"><b>' + data[i].Accessibility[j].Categorie.Name + '</b></b></div>';
+                            if (data[i].Accessibility[j].MaintenanceForm)
+                                access += '<div align="center"><i>' + data[i].Accessibility[j].MaintenanceForm.Name + '</i></div><br>';
+                            for (var k in data[i].Accessibility[j].FunctionalAreas)
+                            {
+                                access += '<div align="left">' + data[i].Accessibility[j].FunctionalAreas[k].FunctionalArea.Name + ' - ' +
+                                data[i].Accessibility[j].FunctionalAreas[k].Type.Name + '</div>';
+                            }
+                            access += '</div>';
+                        }
+                        access += '<div id = "showAccessibility" class = "controlButtons">Показать все категории</div>';
+
+
                         socialsList[i] = {
                             coordinates: data[i].Latitude + "," + data[i].Longitude,
                             // our internal uuid ¯\_(ツ)_/¯
@@ -78,7 +119,9 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             route: data[i].Route,
                             address: data[i].Address,
                             objectName: data[i].ObjectName,
-                            category_id: 1
+                            category_id: 1,
+                            icon: imgUrl,
+                            access: access
                         };
                     }
                     self.socialList = socialsList;

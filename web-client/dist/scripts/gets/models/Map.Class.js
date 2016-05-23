@@ -518,10 +518,13 @@ MapClass.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 
 MapClass.prototype.placeSocialsOnMap = function(socialList) {
     this.socialsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
-
     for (var i = 0; i < socialList.length; i++) {
         var coords = socialList[i].coordinates.split(',');
-        var marker = L.marker([coords[0], coords[1]], {title: socialList[i].name, draggable: false}); //{icon: myIcon}
+        var ic = L.icon({
+            iconUrl: socialList[i].icon,
+            iconSize: [40,40],
+        });
+        var marker = L.marker([coords[0], coords[1]], {title: socialList[i].name, draggable: false, icon: ic}); //{icon: myIcon}
         marker.uuid = socialList[i].uuid;
         marker.title = socialList[i].title;
         marker.category_id = socialList[i].category_id;
@@ -535,7 +538,34 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
 
     this.map.addLayer(this.socialsLayer);
 };
+MapClass.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
+    this.removeSocialsLayer();
+    var socialList = this.socialMarkers;
 
+    this.socialsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
+
+    for (var i = 0; i < socialList.length; i++) {
+        if (socialList[i].category_id != categoryId)
+            continue;
+        var coords = socialList[i].coordinates.split(',');
+        var ic = L.icon({
+            iconUrl: socialList[i].icon,
+            iconSize: [40,40],
+        });
+        var marker = L.marker([coords[0], coords[1]], {title: socialList[i].name, draggable: false, icon: ic}); //{icon: myIcon}
+        marker.uuid = socialList[i].uuid;
+        marker.title = socialList[i].title;
+        marker.category_id = socialList[i].category_id;
+        this.socialsLayer.addLayer(marker);
+        this.socialMarkers.push(marker);
+
+        var popup = L.popup().setContent(socialList[i].title);
+        var self = this;
+        marker.bindPopup(popup);
+    }
+
+    this.map.addLayer(this.socialsLayer);
+};
 
 MapClass.prototype.setMapCenterOnSocial = function(uuid) {
     for (var i = 0; i < this.socialMarkers.length; i++)
