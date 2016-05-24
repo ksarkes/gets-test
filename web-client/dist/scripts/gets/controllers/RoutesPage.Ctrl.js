@@ -132,25 +132,22 @@ RoutesPage.prototype.initPage = function () {
         self._mapCtrl.setMapCenterOnSocial(self._socials.social.uuid);
     });
 
-    // To avoid double call on category radiobutton group
-    $(this.document).on('click', '#blind', function(e) {
-        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
+    $(this.document).on('click', '.disabilitiesSelect', function(e) {
+        var states = [];
+        $(".scope").each(function () {
+            $(this).prop('checked') ? states[$(this).prop('id')] = true :
+                states[$(this).prop('id')] = false;
+        });
+        self._mapCtrl.placeFilteredSocialsOnMap(returnCategory(), states);
     });
 
-    $(this.document).on('click', '#deaf', function(e) {
-        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
-    });
-
-    $(this.document).on('click', '#mental', function(e) {
-        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
-    });
-
-    $(this.document).on('click', '#muscle', function(e) {
-        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
-    });
-
-    $(this.document).on('click', '#wheelchair', function(e) {
-        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
+    $(this.document).on('click', '.scope', function(e) {
+        var states = [];
+        $(".scope").each(function () {
+            $(this).prop('checked') ? states[$(this).prop('id')] = true :
+                states[$(this).prop('id')] = false;
+        });
+        self._mapCtrl.placeFilteredSocialsOnMap(returnCategory(), states);
     });
 
 

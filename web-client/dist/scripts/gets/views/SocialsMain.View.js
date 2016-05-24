@@ -51,7 +51,7 @@ SocialsMain.prototype.placeScopesInScopeList = function (scopeList) {
     }
     var scopeListHTML = 'Сферы деятельности';
     for (var i = 0, len = scopeList.length; i < len; i++) {
-        scopeListHTML += '<div class="checkbox"><label><input checked="true" type="checkbox" id=' + scopeList[i].id + '>' + scopeList[i].name + '</label></li></div>';
+        scopeListHTML += '<div class="checkbox"><label><input checked="true" type="checkbox" class="scope" id=' + scopeList[i].id + '>' + scopeList[i].name + '</label></div>';
     }
     scopeListHTML += '<br>';
     $(scopeListElement).html(scopeListHTML);

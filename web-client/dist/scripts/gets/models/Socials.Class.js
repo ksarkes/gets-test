@@ -98,8 +98,8 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                                 accessRelations[access[l].Categorie.Id] = access[l].MaintenanceForm.Id;
 
                         var scopes = [];
-                        for (var j in data[i].Scopes)
-                            scopes.push(data[i].Scopes[j].Id);
+                        //for (var j in data[i].Scopes)
+                        //    scopes.push(data[i].Scopes[j].Id);
 
                         socialsList[i] = {
                             coordinates: data[i].Latitude + "," + data[i].Longitude,
@@ -112,8 +112,9 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             icon: imgUrl,
                             access: access,
                             accessRelations: accessRelations,
-                            scopes: scopes
+                            scopes: data[i].Scopes
                         };
+                        //alert(JSON.stringify(socialsList[i].scopes));
                     }
                     self.socialList = socialsList;
                     if (callback) {

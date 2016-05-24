@@ -633,12 +633,20 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
 
     this.map.addLayer(this.socialsLayer);
 };
-MapClass.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
+MapClass.prototype.placeFilteredSocialsOnMap = function(categoryId, states) {
     this.removeSocialsLayer();
     var socialList = this.socialList;
-
     this.socialsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
     for (var i = 0; i < socialList.length; i++) {
+
+        var isPassed = false;
+        $.each(socialList[i].scopes, function (id, val) {
+           if (states[val.Id])
+            isPassed = true;
+        });
+        if (!isPassed)
+            continue;
+
         var coords = socialList[i].coordinates.split(',');
         var imgUrl;
         switch (socialList[i].accessRelations[categoryId]) {

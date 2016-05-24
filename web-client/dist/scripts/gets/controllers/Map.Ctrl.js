@@ -90,8 +90,8 @@ MapController.prototype.placeSocialsOnMap = function(socialList) {
 MapController.prototype.removeRoutesFromMap = function() {
     this._map.removeRoutesFromMap();
 };
-MapController.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
-    this._map.placeSocialsByCategoryOnMap(categoryId);
+MapController.prototype.placeFilteredSocialsOnMap = function(categoryId, states) {
+    this._map.placeFilteredSocialsOnMap(categoryId, states);
 };
 MapController.prototype.removePointsFromMap = function() {
     this._map.removePointsLayer();

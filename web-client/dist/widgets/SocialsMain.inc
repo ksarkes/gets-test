@@ -9,7 +9,7 @@ echo '<div id="socials-main-page" class="action-menu-container hidden">
                 <label><input type="radio" name="disabilities" id = "muscle" class="disabilitiesSelect"><div id = "muscle_img" title="С нарушениями опорно-двигательного аппарата"></div></label>
                 <label><input type="radio" name="disabilities" id = "wheelchair" class="disabilitiesSelect"><div id = "wheelchair_img" title="Передвигающиеся на креслах-колясках"></div></label>
                 </div>
-            <div class="action-menu-inner-content">
+            <div class="action-menu-inner-content" id="check_scope">
                 <ul id="scopes-list" class="list-group">
                 </ul>
             </div>
