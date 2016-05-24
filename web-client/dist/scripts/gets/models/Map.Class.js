@@ -626,7 +626,7 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
         this.socialsLayer.addLayer(marker);
         this.socialMarkers.push(marker);
 
-        var popup = L.popup().setContent(socialList[i].title + "<br><button class='route_to' name="+ coords + ">Проложить маршрут</button>");
+        var popup = L.popup().setContent("<center>" + socialList[i].title + "<br><button class='route_to' name="+ coords + ">Проложить маршрут</button></center>");
         var self = this;
         marker.bindPopup(popup);
     }
@@ -670,7 +670,7 @@ MapClass.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
         this.socialsLayer.addLayer(marker);
         this.socialMarkers.push(marker);
 
-        var popup = L.popup().setContent(socialList[i].title + "<br><button class='route_to' name="+ coords + ">Проложить маршрут</button>");
+        var popup = L.popup().setContent("<center>" + socialList[i].title + "<br><button class='route_to' name="+ coords + ">Проложить маршрут</button></center>");
         var self = this;
         marker.bindPopup(popup);
     }
