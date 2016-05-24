@@ -97,10 +97,6 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             if (access[l].Categorie.Id != null && access[l].MaintenanceForm != null)
                                 accessRelations[access[l].Categorie.Id] = access[l].MaintenanceForm.Id;
 
-                        var scopes = [];
-                        //for (var j in data[i].Scopes)
-                        //    scopes.push(data[i].Scopes[j].Id);
-
                         socialsList[i] = {
                             coordinates: data[i].Latitude + "," + data[i].Longitude,
                             // our internal uuid ¯\_(ツ)_/¯
@@ -114,7 +110,6 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             accessRelations: accessRelations,
                             scopes: data[i].Scopes
                         };
-                        //alert(JSON.stringify(socialsList[i].scopes));
                     }
                     self.socialList = socialsList;
                     if (callback) {
@@ -137,8 +132,6 @@ function getAccessString(accessibility, categoryId) {
     var access = "";
     for (var j in accessibility)
     {
-        //accessRelations.push([accessibility[j].Categorie.Id, accessibility[j].MaintenanceForm.Id]);
-
         if(accessibility[j].Categorie.Id == categoryId)
             access += '<div>';
         else
@@ -154,49 +147,8 @@ function getAccessString(accessibility, categoryId) {
         }
         access += '</div>';
     }
-    //access += '<div id = "showAccessibility" class = "controlButtons">Показать все категории</div>';
     return access;
 }
-/**
- * Create description for add social as object.
- *
- * @param {String} audioURL Audio track url.
- * @param {String} imageURL Description text.
- * @param {String} uuid social's UUID.
- * @param {String} index social's position in a track.
- *
- * @returns {Object} New description object
- */
-SocialsClass.prototype.createDescription = function(audioURL, imageURL, index, radius) {
-    var descObj = {};
-
-    /*if (!text) {
-     descObj.description = '';
-     } else {
-     descObj.description = text;
-     }*/
-
-    if (audioURL) {
-        descObj.audio = audioURL;
-    }
-
-    if (imageURL) {
-        descObj.photo = imageURL;
-    }
-
-    if (index) {
-        descObj.idx = index;
-    }
-
-    if (radius) {
-        descObj.radius = radius;
-    } else {
-        descObj.radius = 63;
-    }
-
-    return descObj;
-};
-
 SocialsClass.prototype.findSocialInsocialList = function(uuid) {
     if (!uuid || !this.socialList) {
         return;

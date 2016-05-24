@@ -48,9 +48,6 @@ RoutesPage.prototype.changeForm = function () {
 RoutesPage.prototype.initPage = function () {
     var self = this;
 
-    //TODO: почистить говно
-    // try {
-
     if(this._routes == null)
     {
         this._routes = [];
@@ -252,9 +249,6 @@ RoutesPage.prototype.handleGeoLocationError = function (error) {
 RoutesPage.prototype.showSocialsMain = function () {
     try {
         this._headerView.clearOption();
-
-        // this._socialsMain.placeCategoriesInPointMain(this._categories.getCategories());
-
         this.currentView.hideView();
         this.currentView = this._socialsMain;
         this.currentView.showView();
