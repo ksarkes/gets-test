@@ -80,8 +80,17 @@ MapController.prototype.getRoutesForTrack = function(track) {
 MapController.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
     this._map.placePointsOnMap(pointList, markerBaseLink);
 };
+MapController.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
+    this._map.placeRouteOnMap(route, points, routeBaseLink);
+}
 MapController.prototype.placeSocialsOnMap = function(socialList) {
     this._map.placeSocialsOnMap(socialList);
+}
+
+MapController.prototype.removeRoutesFromMap = function() {
+    this._map.removeRoutesFromMap();  
+};
+
 };
 MapController.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
     this._map.placeSocialsByCategoryOnMap(categoryId);
@@ -99,6 +108,10 @@ MapController.prototype.createTempMarker = function(latitude, longitude, callbac
 MapController.prototype.removeTempMarker = function() { 
     this._map.removeTempMarker();
 };
+
+MapController.prototype.setCurrentRouteLayer = function (type) {
+    this._map.setCurrentRouteLayer(type);
+}
 
 MapController.prototype.createSearchArea = function(lat, lng, radius) {
     this._map.createSearchArea(lat, lng, radius);

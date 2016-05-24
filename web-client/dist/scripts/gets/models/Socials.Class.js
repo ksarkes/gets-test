@@ -120,7 +120,8 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             objectName: data[i].ObjectName,
                             category_id: 1,
                             icon: imgUrl,
-                            access: access
+                            access: access,
+                            scope: data[i].Scopes[0].Id
                         };
                     }
                     self.socialList = socialsList;
@@ -188,7 +189,7 @@ SocialsClass.prototype.findSocialInsocialList = function(uuid) {
     for (var i = 0, len = this.socialList.length; i < len; i++) {
         if (this.socialList[i].uuid.trim() === uuid.trim()) {
             this.social = this.socialList[i];
-            return this.socialList[i];
+            return this.social;
         }
     }
 };

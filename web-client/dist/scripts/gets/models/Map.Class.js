@@ -20,7 +20,11 @@ function MapClass() {
     this.searchArea = null;
     this.userMarker = null;
     this.pointsLayer = null;
+    this.routesPointsLayer = null;
     this.socialsLayer = null;
+    this.routeLayer = null;
+    this.routeLayerArray = null;
+    this.currentRouteLayer = null;
     this.socialMarkers = [];
 }
 
@@ -57,9 +61,16 @@ MapClass.prototype.initMap = function() {
             contextmenuItems: [{
                 text: 'Add marker',
                 callback: function () { alert('click add marker') }
-            }]
+            },
+                {
+                    text: 'Проложить маршрут',
+                    callback: function (e) {
+                        window.location = "routes.php?lang=ru#form=add_route&lat=" + e.latlng.lat +"&lng=" + e.latlng.lng;
+                    }
+                }]
         });
     }
+        
       /*
     if (!this.layersControl) {
         this.layersControl = L.control.layers({
@@ -516,6 +527,89 @@ MapClass.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 };
 
 
+function onEachFeature(feature, layer) {
+    var popupContent = '<br><a href="' + feature.properties.popupContent + '">Поместить маршрут в окно "Информация о маршруте"</a>';
+    layer.bindPopup(popupContent);
+    // layer.on({click: clickFeature});
+}
+
+function clickFeature(e) {
+    var layer = e.target;
+    layer.bringToFront();
+}
+MapClass.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
+        var that = this;
+        var coords = [];
+        this.routesPointsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
+        $.each(route.getObstacles(), function (id, val) {
+            var tmpPoint = points.findPointInPointList(val['uuid']);
+            var coords = tmpPoint.coordinates.split(',');
+            var marker = L.marker([coords[1], coords[0]], {title: tmpPoint.name, draggable: false}); //{icon: myIcon}
+            marker.uuid = tmpPoint.uuid;
+            marker.title = tmpPoint.name;
+            marker.category_id = tmpPoint.category_id;
+
+
+            that.routesPointsLayer.addLayer(marker);
+
+            var popup = L.popup()
+                .setContent(
+                    '<b>' + tmpPoint.name +
+                    '</b><br>' +tmpPoint.description);
+            marker.bindPopup(popup);
+        });
+        this.routeLayer.addLayer(this.routesPointsLayer);
+        $.each(route.getRouteCoords(), function (id, val) {
+            coords.push([val['lng'],val['lat']]);
+        });
+        var currRoute = {
+            "type": "Feature",
+            "properties": {
+                "type": route.getType(),
+                "popupContent": routeBaseLink,
+                "underConstruction": false
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": coords
+            }
+        };
+    var geoJsonRuteLayer = L.geoJson(currRoute, {
+        onEachFeature: onEachFeature,
+        style: function(feature) {
+            switch (feature.properties.type) {
+                case 'normal': return {color: "#f1c40f", opacity: 1};
+                case 'safe':   return {color: "#2ecc71", opacity: 1};
+                case 'fastest':   return {color: "#c0392b", opacity: 1};
+            }
+        }
+    });
+    geoJsonRuteLayer.on('click', function (e) {
+        var layer = e.target;
+        layer.bringToFront();
+    });
+    this.routeLayerArray[route.getType()] = geoJsonRuteLayer;
+    this.routeLayer.addLayer(geoJsonRuteLayer);
+    this.map.addLayer(this.routeLayer);
+};
+
+MapClass.prototype.setCurrentRouteLayer = function (type) {
+    this.currentRouteLayer = this.routeLayerArray[type];
+    this.currentRouteLayer.fire("click");
+};
+
+MapClass.prototype.getCurrentRouteLayer = function () {
+  return this.currentRouteLayer;
+};
+
+MapClass.prototype.removeRoutesFromMap = function () {
+    if (this.routeLayer) {
+        this.map.removeLayer(this.routeLayer);
+    }
+    this.routeLayerArray = {};
+    this.routeLayer = new L.layerGroup();
+};
+
 MapClass.prototype.placeSocialsOnMap = function(socialList) {
     this.socialsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
     for (var i = 0; i < socialList.length; i++) {
@@ -556,10 +650,11 @@ MapClass.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
         marker.uuid = socialList[i].uuid;
         marker.title = socialList[i].title;
         marker.category_id = socialList[i].category_id;
+        marker.scope = socialList[i].scope;
         this.socialsLayer.addLayer(marker);
         this.socialMarkers.push(marker);
 
-        var popup = L.popup().setContent(socialList[i].title);
+        var popup = L.popup().setContent(socialList[i].title + "<br><button class='route_to' name="+ coords + ">Проложить маршрут</button>");
         var self = this;
         marker.bindPopup(popup);
     }
