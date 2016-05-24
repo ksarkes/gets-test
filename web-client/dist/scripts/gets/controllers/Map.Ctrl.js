@@ -82,10 +82,10 @@ MapController.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 };
 MapController.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
     this._map.placeRouteOnMap(route, points, routeBaseLink);
-}
+};
 MapController.prototype.placeSocialsOnMap = function(socialList) {
     this._map.placeSocialsOnMap(socialList);
-}
+};
 
 MapController.prototype.removeRoutesFromMap = function() {
     this._map.removeRoutesFromMap();
@@ -109,7 +109,7 @@ MapController.prototype.removeTempMarker = function() {
 
 MapController.prototype.setCurrentRouteLayer = function (type) {
     this._map.setCurrentRouteLayer(type);
-}
+};
 
 MapController.prototype.createSearchArea = function(lat, lng, radius) {
     this._map.createSearchArea(lat, lng, radius);

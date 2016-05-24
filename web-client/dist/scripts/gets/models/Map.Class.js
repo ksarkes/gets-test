@@ -26,6 +26,7 @@ function MapClass() {
     this.routeLayerArray = null;
     this.currentRouteLayer = null;
     this.socialMarkers = [];
+    this.socialList = [];
 }
 
 // Route types
@@ -611,6 +612,7 @@ MapClass.prototype.removeRoutesFromMap = function () {
 };
 
 MapClass.prototype.placeSocialsOnMap = function(socialList) {
+    this.socialList = socialList;
     this.socialsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
     for (var i = 0; i < socialList.length; i++) {
         var coords = socialList[i].coordinates.split(',');
@@ -621,7 +623,6 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
         var marker = L.marker([coords[0], coords[1]], {title: socialList[i].name, draggable: false, icon: ic}); //{icon: myIcon}
         marker.uuid = socialList[i].uuid;
         marker.title = socialList[i].title;
-        marker.category_id = socialList[i].category_id;
         this.socialsLayer.addLayer(marker);
         this.socialMarkers.push(marker);
 
@@ -634,23 +635,38 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
 };
 MapClass.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
     this.removeSocialsLayer();
-    var socialList = this.socialMarkers;
+    var socialList = this.socialList;
 
     this.socialsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
-
     for (var i = 0; i < socialList.length; i++) {
-        if (socialList[i].category_id != categoryId)
-            continue;
         var coords = socialList[i].coordinates.split(',');
+        var imgUrl;
+        switch (socialList[i].accessRelations[categoryId]) {
+            // mother of god
+            case 0:
+                imgUrl = 'http://st09.karelia.ru/nvd4j6/a37ecbd31898aa68cd57465999baf0aa/27a5e607be77703bb9462083ca9576f0/ic_location_green.png';
+                break;
+            case 1:
+                imgUrl = 'http://st09.karelia.ru/nvd4j6/0f1cfd750b34259c406741763eb371aa/f2b19583ecdf5324b8660e3ad49b6116/ic_location_yellow.png';
+                break;
+            case 2:
+                imgUrl = 'http://st09.karelia.ru/nvd4j6/2549e824fcd0f795821b6a319070bbaa/af29b0af99d42367513bd3a075dc0a0d/ic_location_red.png';
+                break;
+            case 3:
+                imgUrl = 'http://st09.karelia.ru/nvd4j6/19f0ae0a47fe5277c118b218e66864aa/1c7c30bdf2cbc1da9c839d3452369cfc/ic_location_gray.png';
+                break;
+            default:
+                continue;
+        }
+
         var ic = L.icon({
-            iconUrl: socialList[i].icon,
+            iconUrl: imgUrl,
             iconSize: [40,40],
         });
         var marker = L.marker([coords[0], coords[1]], {title: socialList[i].name, draggable: false, icon: ic}); //{icon: myIcon}
         marker.uuid = socialList[i].uuid;
         marker.title = socialList[i].title;
-        marker.category_id = socialList[i].category_id;
-        marker.scope = socialList[i].scope;
+        marker.scopes = socialList[i].scopes;
         this.socialsLayer.addLayer(marker);
         this.socialMarkers.push(marker);
 

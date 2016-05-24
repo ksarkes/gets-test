@@ -132,6 +132,28 @@ RoutesPage.prototype.initPage = function () {
         self._mapCtrl.setMapCenterOnSocial(self._socials.social.uuid);
     });
 
+    // To avoid double call on category radiobutton group
+    $(this.document).on('click', '#blind', function(e) {
+        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
+    });
+
+    $(this.document).on('click', '#deaf', function(e) {
+        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
+    });
+
+    $(this.document).on('click', '#mental', function(e) {
+        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
+    });
+
+    $(this.document).on('click', '#muscle', function(e) {
+        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
+    });
+
+    $(this.document).on('click', '#wheelchair', function(e) {
+        self._mapCtrl.placeSocialsByCategoryOnMap(returnCategory());
+    });
+
+
     $(this.document).on('click', '#social-all-access', function(e) {
         e.preventDefault();
         if ($(".invisibleAccessibility").css("display") == "none")
@@ -254,7 +276,8 @@ RoutesPage.prototype.showSocialInfo = function () {
         }
 
         var social = this._socials.findSocialInsocialList(socialUUID);
-        this._socialInfo.placeSocialInSocialInfo(social, this._mapCtrl);
+        var categoryId =
+        this._socialInfo.placeSocialInSocialInfo(social, returnCategory());
 
 
         this.currentView.hideView();
@@ -281,7 +304,6 @@ RoutesPage.prototype.downloadSocialsHandler = function () {
             that._socialsMain.placeScopesInScopeList(scopeList);
             that._mapCtrl.placeSocialsOnMap(socialList);
             that._socialsMain.hideOverlay();
-            //that._mapCtrl.placeSocialsByCategoryOnMap(1);
         });
     } catch (Exception) {
         MessageBox.showMessage(Exception.toString(), MessageBox.ERROR_MESSAGE);
@@ -311,3 +333,16 @@ RoutesPage.prototype.addRouteFromMap = function () {
     var fromCoords = this._user.getUsersGeoPosition();
     this.route(fromCoords.lat,fromCoords.lng,toLat,toLng);
 };
+
+function returnCategory() {
+    if ($("#deaf").prop("checked"))
+        return 4;
+    if ($("#blind").prop("checked"))
+        return 3;
+    if ($("#mental").prop("checked"))
+        return 5;
+    if ($("#muscle").prop("checked"))
+        return 2;
+    if ($("#wheelchair").prop("checked"))
+        return 1;
+}

@@ -9,7 +9,7 @@ function SocialInfo(document, socialInfo) {
  * @param {Object} social Object contains social info.
  * @param {Boolean} isAuth Variable indicates is user authorized.
  */
-SocialInfo.prototype.placeSocialInSocialInfo = function(social, mapCtrl) {
+SocialInfo.prototype.placeSocialInSocialInfo = function(social, categoryId) {
     // Get all elements
     var nameElement = $(this.socialInfo).find('#social-info-name');
     var objectNameElement = $(this.socialInfo).find('#social-info-objectName');
@@ -21,23 +21,21 @@ SocialInfo.prototype.placeSocialInSocialInfo = function(social, mapCtrl) {
     // Clear value of all elements
     $(nameElement).text('');
     $(objectNameElement).text('');
-    $(routeElement).text('Как добраться: ');
+    $(routeElement).text('');
     $(addressElement).text('');
     $(accessElement).text('');
 
     // Then fill elemnts with new values
-    if (social.title != null)
+    if (social.title != null && social.title != '')
         $(nameElement).text(social.title).attr('title', social.title);
-    if (social.objectName != null)
+    if (social.objectName != null && social.objectName != '')
         $(objectNameElement).text(social.objectName);
-    if (social.address != null)
+    if (social.address != null && social.address != '')
         $(addressElement).text(social.address);
-    if (social.route != null)
-        $(routeElement).append(social.route);
+    if (social.route != null && social.route != '')
+        $(routeElement).append("Как добраться: " + social.route);
     if (social.access != null)
-        $(accessElement).append(social.access);
-    else
-        $(routeElement).text('');
+        $(accessElement).append(getAccessString(social.access, categoryId));
 };
 
 SocialInfo.prototype.getView = function() {

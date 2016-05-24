@@ -89,26 +89,17 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                                 default:
                                     continue;
                             }
-                        var access = "";
-                        for(var j in data[i].Accessibility)
-                        {
-                            if(data[i].Accessibility[j].Categorie.Id == categoryId)
-                                access += '<div>';
-                            else
-                                access += '<div class = invisibleAccessibility>';
-                            if (data[i].Accessibility[j].Categorie)
-                                access += '<br><div align="center"><b>' + data[i].Accessibility[j].Categorie.Name + '</b></b></div>';
-                            if (data[i].Accessibility[j].MaintenanceForm)
-                                access += '<div align="center"><i>' + data[i].Accessibility[j].MaintenanceForm.Name + '</i></div><br>';
-                            for (var k in data[i].Accessibility[j].FunctionalAreas)
-                            {
-                                access += '<div align="left">' + data[i].Accessibility[j].FunctionalAreas[k].FunctionalArea.Name + ' - ' +
-                                data[i].Accessibility[j].FunctionalAreas[k].Type.Name + '</div>';
-                            }
-                            access += '</div>';
-                        }
-                        access += '<div id = "showAccessibility" class = "controlButtons">Показать все категории</div>';
 
+                        var access = data[i].Accessibility;
+                        var accessRelations = [];
+
+                        for (var l in access)
+                            if (access[l].Categorie.Id != null && access[l].MaintenanceForm != null)
+                                accessRelations[access[l].Categorie.Id] = access[l].MaintenanceForm.Id;
+
+                        var scopes = [];
+                        for (var j in data[i].Scopes)
+                            scopes.push(data[i].Scopes[j].Id);
 
                         socialsList[i] = {
                             coordinates: data[i].Latitude + "," + data[i].Longitude,
@@ -118,10 +109,10 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
                             route: data[i].Route,
                             address: data[i].Address,
                             objectName: data[i].ObjectName,
-                            category_id: 1,
                             icon: imgUrl,
                             access: access,
-                            scope: data[i].Scopes[0].Id
+                            accessRelations: accessRelations,
+                            scopes: scopes
                         };
                     }
                     self.socialList = socialsList;
@@ -141,7 +132,30 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
 
 
 };
+function getAccessString(accessibility, categoryId) {
+    var access = "";
+    for (var j in accessibility)
+    {
+        //accessRelations.push([accessibility[j].Categorie.Id, accessibility[j].MaintenanceForm.Id]);
 
+        if(accessibility[j].Categorie.Id == categoryId)
+            access += '<div>';
+        else
+            access += '<div class = invisibleAccessibility>';
+        if (accessibility[j].Categorie)
+            access += '<br><div align="center"><b>' + accessibility[j].Categorie.Name + '</b></b></div>';
+        if (accessibility[j].MaintenanceForm)
+            access += '<div align="center"><i>' + accessibility[j].MaintenanceForm.Name + '</i></div><br>';
+        for (var k in accessibility[j].FunctionalAreas)
+        {
+            access += '<div align="left">' + accessibility[j].FunctionalAreas[k].FunctionalArea.Name + ' - ' +
+            accessibility[j].FunctionalAreas[k].Type.Name + '</div>';
+        }
+        access += '</div>';
+    }
+    //access += '<div id = "showAccessibility" class = "controlButtons">Показать все категории</div>';
+    return access;
+}
 /**
  * Create description for add social as object.
  *
