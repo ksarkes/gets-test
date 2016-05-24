@@ -625,7 +625,7 @@ MapClass.prototype.placeSocialsOnMap = function(socialList) {
         this.socialsLayer.addLayer(marker);
         this.socialMarkers.push(marker);
 
-        var popup = L.popup().setContent(socialList[i].title);
+        var popup = L.popup().setContent(socialList[i].title + "<br><button class='route_to' name="+ coords + ">Проложить маршрут</button>");
         var self = this;
         marker.bindPopup(popup);
     }

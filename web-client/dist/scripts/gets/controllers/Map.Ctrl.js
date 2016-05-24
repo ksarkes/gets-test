@@ -88,9 +88,7 @@ MapController.prototype.placeSocialsOnMap = function(socialList) {
 }
 
 MapController.prototype.removeRoutesFromMap = function() {
-    this._map.removeRoutesFromMap();  
-};
-
+    this._map.removeRoutesFromMap();
 };
 MapController.prototype.placeSocialsByCategoryOnMap = function(categoryId) {
     this._map.placeSocialsByCategoryOnMap(categoryId);
