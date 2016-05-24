@@ -392,3 +392,7 @@ input.search-query {
 .disabilitiesSelect {
     display: none;
 }
+
+.invisibleAccessibility {
+    display: none;
+}

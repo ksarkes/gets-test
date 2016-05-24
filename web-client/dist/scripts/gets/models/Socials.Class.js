@@ -52,7 +52,6 @@ SocialsClass.prototype.downloadSocials = function(paramsObj, callback) {
         url: 'http://ds-karelia.opti-soft.ru/api/getListScopes',
         dataType: 'jsonp',
         success: function (scopeData) {
-            alert("da");
             for (var i in scopeData) {
                 var opt = document.createElement("option");
                 opt.innerHTML = scopeData[i].Name;
