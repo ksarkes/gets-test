@@ -10,6 +10,7 @@ echo    '<div id="route-info-page" class="action-menu-container hidden" data-pag
                     </div>
                   
                     <span><b>Стоимость:</b></span><div id="route-weight"></div>
+                    <div id="obstacles_calc"></div>
                     <span><b>Препятствия:</b></span>
                     <div id="route-obstacles"></div>
                 </div>   

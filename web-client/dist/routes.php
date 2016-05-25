@@ -5,6 +5,7 @@ require_once(TRANSLATIONS_SCRIPT);
 ?>
 <html>
 <head>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/bootstrap-3.2.0/bootstrap.min.css">
     <link rel="stylesheet" href="styles/bootstrap-3.2.0/bootstrap-theme.min.css">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />

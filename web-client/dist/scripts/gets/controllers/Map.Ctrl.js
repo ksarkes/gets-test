@@ -80,8 +80,8 @@ MapController.prototype.getRoutesForTrack = function(track) {
 MapController.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
     this._map.placePointsOnMap(pointList, markerBaseLink);
 };
-MapController.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
-    this._map.placeRouteOnMap(route, points, routeBaseLink);
+MapController.prototype.placeRouteOnMap = function (route, points, routeBaseLink, categories) {
+    this._map.placeRouteOnMap(route, points, routeBaseLink, categories);
 };
 MapController.prototype.placeSocialsOnMap = function(socialList) {
     this._map.placeSocialsOnMap(socialList);

@@ -27,6 +27,7 @@ function MapClass() {
     this.currentRouteLayer = null;
     this.socialMarkers = [];
     this.socialList = [];
+    this.currentPosition = [];
 }
 
 // Route types
@@ -56,6 +57,7 @@ MapClass.prototype.initMap = function() {
         this.map = L.map('map', {
             center: [61.7830, 34.350],
             zoom: 10,
+            zoomControl: false,
             layers: [this.baseMapLayer],
             contextmenu: true,
             contextmenuWidth: 140,
@@ -70,6 +72,84 @@ MapClass.prototype.initMap = function() {
                     }
                 }]
         });
+        var that = this;
+        L.Control.zoomHome = L.Control.extend({
+            options: {
+                position: 'topright',
+                zoomInText: '+',
+                zoomInTitle: 'Zoom in',
+                zoomOutText: '-',
+                zoomOutTitle: 'Zoom out',
+                zoomHomeText: '<i class="fa fa-home" style="line-height:1.65;"></i>',
+                zoomHomeTitle: 'Zoom home'
+            },
+
+            onAdd: function (map) {
+                var controlName = 'gin-control-zoom',
+                    container = L.DomUtil.create('div', controlName + ' leaflet-bar'),
+                    options = this.options;
+
+                this._zoomInButton = this._createButton(options.zoomInText, options.zoomInTitle,
+                    controlName + '-in', container, this._zoomIn);
+                this._zoomHomeButton = this._createButton(options.zoomHomeText, options.zoomHomeTitle,
+                    controlName + '-home', container, this._zoomHome);
+                this._zoomOutButton = this._createButton(options.zoomOutText, options.zoomOutTitle,
+                    controlName + '-out', container, this._zoomOut);
+
+                this._updateDisabled();
+                map.on('zoomend zoomlevelschange', this._updateDisabled, this);
+
+                return container;
+            },
+
+            onRemove: function (map) {
+                map.off('zoomend zoomlevelschange', this._updateDisabled, this);
+            },
+
+            _zoomIn: function (e) {
+                this._map.zoomIn(e.shiftKey ? 3 : 1);
+            },
+
+            _zoomOut: function (e) {
+                this._map.zoomOut(e.shiftKey ? 3 : 1);
+            },
+
+            _zoomHome: function (e) {
+                that.map.setView(that.currentPosition, 15);
+            },
+
+            _createButton: function (html, title, className, container, fn) {
+                var link = L.DomUtil.create('a', className, container);
+                link.innerHTML = html;
+                link.href = '#';
+                link.title = title;
+
+                L.DomEvent.on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
+                    .on(link, 'click', L.DomEvent.stop)
+                    .on(link, 'click', fn, this)
+                    .on(link, 'click', this._refocusOnMap, this);
+
+                return link;
+            },
+
+            _updateDisabled: function () {
+                var map = this._map,
+                    className = 'leaflet-disabled';
+
+                L.DomUtil.removeClass(this._zoomInButton, className);
+                L.DomUtil.removeClass(this._zoomOutButton, className);
+
+                if (map._zoom === map.getMinZoom()) {
+                    L.DomUtil.addClass(this._zoomOutButton, className);
+                }
+                if (map._zoom === map.getMaxZoom()) {
+                    L.DomUtil.addClass(this._zoomInButton, className);
+                }
+            }
+        });
+// add the new control to the map
+        var zoomHome = new L.Control.zoomHome();
+        zoomHome.addTo(this.map);
     }
         
       /*
@@ -531,21 +611,24 @@ MapClass.prototype.placePointsOnMap = function(pointList, markerBaseLink) {
 function onEachFeature(feature, layer) {
     var popupContent = '<br><a href="' + feature.properties.popupContent + '">Поместить маршрут в окно "Информация о маршруте"</a>';
     layer.bindPopup(popupContent);
-    // layer.on({click: clickFeature});
 }
-
-function clickFeature(e) {
-    var layer = e.target;
-    layer.bringToFront();
-}
-MapClass.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
+MapClass.prototype.placeRouteOnMap = function (route, points, routeBaseLink, categories) {
         var that = this;
         var coords = [];
         this.routesPointsLayer = new L.MarkerClusterGroup({disableClusteringAtZoom: 17});
         $.each(route.getObstacles(), function (id, val) {
             var tmpPoint = points.findPointInPointList(val['uuid']);
             var coords = tmpPoint.coordinates.split(',');
-            var marker = L.marker([coords[1], coords[0]], {title: tmpPoint.name, draggable: false}); //{icon: myIcon}
+            var tmpCategory;
+            $.each(categories, function (i,v) {
+                if($(v).find("id").text() == tmpPoint.category_id)
+                    tmpCategory = v;
+            });
+            var ic = L.icon({
+                iconUrl: $(tmpCategory).find("url").text().split('"')[3],
+                iconSize: [40,40]
+            });
+            var marker = L.marker([coords[1], coords[0]], {title: tmpPoint.name, draggable: false,  icon: ic}); //{icon: myIcon}
             marker.uuid = tmpPoint.uuid;
             marker.title = tmpPoint.name;
             marker.category_id = tmpPoint.category_id;
@@ -579,14 +662,16 @@ MapClass.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
         onEachFeature: onEachFeature,
         style: function(feature) {
             switch (feature.properties.type) {
-                case 'normal': return {color: "#f1c40f", opacity: 1};
-                case 'safe':   return {color: "#2ecc71", opacity: 1};
-                case 'fastest':   return {color: "#c0392b", opacity: 1};
+                case 'normal': return {color: "#f1c40f", opacity: 0.5};
+                case 'safe':   return {color: "#2ecc71", opacity: 0.5};
+                case 'fastest':   return {color: "#c0392b", opacity: 0.5};
             }
         }
     });
+    var that = this;
     geoJsonRuteLayer.on('click', function (e) {
         var layer = e.target;
+        layer.setStyle({opacity: 1});
         layer.bringToFront();
     });
     this.routeLayerArray[route.getType()] = geoJsonRuteLayer;
@@ -595,6 +680,9 @@ MapClass.prototype.placeRouteOnMap = function (route, points, routeBaseLink) {
 };
 
 MapClass.prototype.setCurrentRouteLayer = function (type) {
+    $.each(this.routeLayerArray, function (key, value) {
+        value.setStyle({opacity: 0.5});
+    });
     this.currentRouteLayer = this.routeLayerArray[type];
     this.currentRouteLayer.fire("click");
 };
@@ -788,7 +876,14 @@ MapClass.prototype.checkTrack = function(track) {
  * @param {Double} longitude
  */
 MapClass.prototype.setCenter = function(latitude, longitude) {
-    this.map.setView([latitude, longitude], 11);
+    var ic = L.icon({
+        iconUrl: "img/pegman.png",
+        iconSize: [40,40]
+    });
+    var marker = L.marker([latitude, longitude], {title: "Вы здесь", draggable: false,  icon: ic});
+    this.map.addLayer(marker);
+    this.currentPosition = [latitude,longitude];
+    this.map.setView([latitude, longitude], 15);
 };
 /**
  * Get center of a map.

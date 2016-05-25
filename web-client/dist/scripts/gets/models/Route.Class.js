@@ -2,7 +2,9 @@
  * Created by artyo on 03.05.2016.
  */
 
-function RouteClass(dist, weight, type, routeCoords, obstacles) {
+function RouteClass(dist, weight, type, routeCoords, obstacles, rBegin, rEnd) {
+    this.routeBegin = rBegin;
+    this.routeEnd = rEnd;
     this.distance = dist;
     this.weight = weight;
     this.obstacles = obstacles;
@@ -28,4 +30,12 @@ RouteClass.prototype.getType = function () {
 
 RouteClass.prototype.getRouteCoords = function () {
     return this.routeCoords;
+};
+
+RouteClass.prototype.getRouteBegin = function () {
+    return this.routeBegin;
+};
+
+RouteClass.prototype.getRouteEnd = function () {
+    return this.routeEnd;
 };

@@ -4,19 +4,23 @@ function RouteInfo(document, routeInfo) {
     this.routeInfo = routeInfo;
 }
 
-RouteInfo.prototype.placeRouteInRouteInfo = function(routes, obstacles, routeType) {
+RouteInfo.prototype.placeRouteInRouteInfo = function(routes, obstacles, routeType, categories) {
     var btnDistanceSafe = $(this.routeInfo).find('#route-type-safe');
     var btnDistanceNormal = $(this.routeInfo).find('#route-type-normal');
     var btnDistanceFastest = $(this.routeInfo).find('#route-type-fastest');
     var obstaclesDiv = $(this.routeInfo).find('#route-obstacles');
     var weight = $(this.routeInfo).find('#route-weight');
+    var obstaclesCalc = $(this.routeInfo).find('#obstacles_calc');
 
+    $(obstaclesCalc).text('');
     $(btnDistanceSafe).text('');
     $(btnDistanceNormal).text('');
     $(btnDistanceFastest).text('');
+    $(obstaclesCalc).hide();
     $(btnDistanceSafe).css("display","none");
     $(btnDistanceNormal).css("display","none");
     $(btnDistanceFastest).css("display","none");
+    $('.distanceBtn').css("opacity",0.5);
     $(obstaclesDiv).text('');
     $(weight).text('');
     var weightObst = 0;
@@ -39,10 +43,34 @@ RouteInfo.prototype.placeRouteInRouteInfo = function(routes, obstacles, routeTyp
         if(value.getType() == routeType)
             currentRoute = value;
     });
+    var obsctCalcString ='';
+    if(currentRoute.getObstacles().length == 0)
+        $(obstaclesDiv).text("На данном маршруте нет препятствий!");
     $.each(currentRoute.getObstacles(), function (id, val) {
         var tmpPoint = obstacles.findPointInPointList(val['uuid']);
-        var appDiv = '<div class="obstacles_info" style="border: 1px solid #000; cursor: pointer">' +
-            '<div>' + tmpPoint.name + '</div>' +
+        var bgColor = "rgba(0,0,0,0);";
+        var img;
+        $.each(tmpPoint.extendedData, function (id2, value1) {
+            if(value1.name == "rating") {
+                if (Number(value1.value) < 2)
+                    bgColor = "rgba(0,255,0,0.5);";
+                else if (Number(value1.value) < 4)
+                    bgColor = "rgba(255, 153, 0, 0.5);";
+                else
+                    bgColor = "rgba(255, 0, 0, 0.5);";
+            }
+            if(value1.name == "category_id") {
+                $.each(categories, function (i,v) {
+                    if($(v).find("id").text() == value1.value)
+                       img = $(v).find("url").text().split('"')[3];
+                });
+            }
+        });
+        var appDiv = '<div class="obstacles_info" style="border: 1px solid #000; cursor: pointer; background: '+ bgColor + '">' +
+            '<div class="obstacles_info_header">' +
+            '<div class="picture_box"><img src="' + img +'"></div>' +
+            '<div style="line-height: 50px;"><label>'+ tmpPoint.name + '</label></div>' +
+            '</div>' +
             '<div class="full_obstacles_info">' +
                 '<div class="main-block">' +
                 '<label>Координаты</label>' +
@@ -65,19 +93,39 @@ RouteInfo.prototype.placeRouteInRouteInfo = function(routes, obstacles, routeTyp
                     '<div id="point-info-extended-data">';
                     $.each(tmpPoint.extendedData, function (id1, value) {
                         appDiv +='<div><b>' + value.name + ':</b>  ' + value.value + '</div>';
-                        if(value.name == "rating")
+                        if(value.name == "rating") {
                             weightObst += Number(value.value);
+                            obsctCalcString += '<div>' + tmpPoint.name + '  \+' +  value.value;
+                        }
                     });
                     appDiv += '</div>' +
                 '</div>' +
             '</div>';
         $(obstaclesDiv).append(appDiv);
     });
+    var obstclColor;
+    switch (routeType) {
+        case 'normal':
+            obstclColor = "rgba(255, 153, 0, 0.5)";
+            $(btnDistanceNormal).css("opacity",1);
+            break;
+        case 'safe':
+            obstclColor = "rgba(0,255,0,0.5)";
+            $(btnDistanceSafe).css("opacity",1);
+            break;
+        case 'fastest':
+            obstclColor = "rgba(255, 0, 0, 0.5)";
+            $(btnDistanceFastest).css("opacity",1);
+            break;
+    }
+
     $(weight).text(weightObst);
+    $(weight).css('background', obstclColor);
+    $(obstaclesCalc).append(obsctCalcString);
 
     $('.obstacles_info').on('click', function (e) {
         $('.full_obstacles_info').css('display','none');
-        $(this).children().css('display','block');
+        $(this).children().css('display','flex');
     });
     $(btnDistanceSafe).on('click', function () {
         window.location = "routes.php?lang=ru#form=route_info&route_type=safe";
@@ -89,6 +137,9 @@ RouteInfo.prototype.placeRouteInRouteInfo = function(routes, obstacles, routeTyp
 
     $(btnDistanceFastest).on('click', function () {
         window.location = "routes.php?lang=ru#form=route_info&route_type=fastest";
+    });
+    $(weight).on('click', function () {
+       $(obstaclesCalc).show();
     });
 
 };

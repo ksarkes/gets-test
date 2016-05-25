@@ -63,7 +63,7 @@ RoutesPage.prototype.initPage = function () {
         this._points = new PointsClass();
     }
     if (!this._categories) {
-        this._categories = new CategoriesClass();
+        this._categories = [];
     }
     if (!this._socials) {
         this._socials = new SocialsClass();
@@ -135,6 +135,11 @@ RoutesPage.prototype.initPage = function () {
             $(this).prop('checked') ? states[$(this).prop('id')] = true :
                 states[$(this).prop('id')] = false;
         });
+        if(self._routes.length != 0) {
+            var from = self._routes[0].getRouteBegin();
+            var to = self._routes[0].getRouteEnd();
+            self.route(from['lat'],from['lng'],to['lat'],to['lng']);
+        }
         self._mapCtrl.placeFilteredSocialsOnMap(returnCategory(), states);
     });
 
@@ -163,6 +168,7 @@ RoutesPage.prototype.initPage = function () {
     });
 
     this.downloadSocialsHandler();
+    this.getCategories();
     // this.downloadPointsHandler();
     // get user's coordinates
     if (this.window.navigator.geolocation) {
@@ -208,7 +214,8 @@ RoutesPage.prototype.route = function (fromLat,fromLng,toLat,toLng) {
         'fromLat': fromLat,
         'fromLng': fromLng,
         'toLat': toLat,
-        'toLng': toLng
+        'toLng': toLng,
+        'disability': returnCategory()
     };
     $.ajax({
         type: 'POST',
@@ -219,12 +226,18 @@ RoutesPage.prototype.route = function (fromLat,fromLng,toLat,toLng) {
             window.location = "routes.php?lang=ru#form=main";
             that._routes = [];
             that._mapCtrl.removeRoutesFromMap();
+            var flag = false;
             $.each(response, function (key, value) {
-               var tmpRoute = new RouteClass(value['distance'],value['weight'], value['type'],value['routePoints'],value['obstacles']);
-                that._mapCtrl.placeRouteOnMap(tmpRoute, that._points, '#form=' + RoutesPage.ROUTE_INFO + '&route_type=' + value['type']);
+                if(value['type'] == "safe")
+                    flag = true;
+               var tmpRoute = new RouteClass(value['distance'],value['weight'], value['type'],value['routePoints'],value['obstacles'],value['routePoints'][0],value['routePoints'][value['routePoints'].length - 1]);
+                that._mapCtrl.placeRouteOnMap(tmpRoute, that._points, '#form=' + RoutesPage.ROUTE_INFO + '&route_type=' + value['type'], that._categories);
                 that._routes.push(tmpRoute);
             });
-            window.location = "routes.php?lang=ru#form=route_info&route_type=fastest";
+            if(flag)
+                window.location = "routes.php?lang=ru#form=route_info&route_type=safe";
+            else
+                window.location = "routes.php?lang=ru#form=route_info&route_type=fastest";
         }
     });
 };
@@ -307,7 +320,7 @@ RoutesPage.prototype.showRouteInfo = function () {
         this._headerView.changeOption($(this._routeInfo.getView()).data('pagetitle'), 'glyphicon-chevron-left', '#form=main');
         var routeType = decodeURIComponent(this._utils.getHashVar('route_type'));
         this._mapCtrl.setCurrentRouteLayer(routeType);
-        this._routeInfo.placeRouteInRouteInfo(this._routes, this._points,  routeType);
+        this._routeInfo.placeRouteInRouteInfo(this._routes, this._points,  routeType, this._categories);
         this.currentView.hideView();
         this.currentView = this._routeInfo;
         this.currentView.showView();
@@ -323,6 +336,29 @@ RoutesPage.prototype.addRouteFromMap = function () {
     var toLng = decodeURIComponent(this._utils.getHashVar('lng'));
     var fromCoords = this._user.getUsersGeoPosition();
     this.route(fromCoords.lat,fromCoords.lng,toLat,toLng);
+};
+RoutesPage.prototype.getCategories = function () {
+    this._categories= [];
+    var that = this;
+    var retCategory;
+    var url = "http://gets.cs.petrsu.ru/obstacle/service/getCategories.php";
+    var data = '<request><params></params></request>';
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        retCategory = new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+        retCategory = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    retCategory.open("POST", url, true);
+    retCategory.send(data);
+    retCategory.onreadystatechange = function () {
+        if (retCategory.readyState == 4 && retCategory.status == 200) {
+            $(retCategory.responseText).find("category").each(function (i, val) {
+                that._categories.push(val);
+            });
+        }
+    };
 };
 
 function returnCategory() {
